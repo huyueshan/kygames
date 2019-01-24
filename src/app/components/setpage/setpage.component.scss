@@ -1,0 +1,189 @@
+.setbox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: .1rem;
+  background: url('../../../assets/images/user/popup/qd_03.png') no-repeat;
+  background-size: contain;
+
+  .close_icon {
+    position: absolute;
+    right: -.1rem;
+    top: -.1rem;
+    width: .4896rem;
+    height: .4896rem;
+    background: url('../../../assets/images/user/popup/grzx_03.png') no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: .5729rem;
+
+    .headimg {
+      width: .3854rem;
+      height: .1979rem;
+      margin-top: .07rem;
+      background: url('../../../assets/images/user/popup/sz_01.png') no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    padding: .2083rem .42rem;
+  }
+
+  [class^='set_item_'] {
+    background-color: #E5E2CF;
+    border: .01rem solid #D3D0BF;
+    border-radius: 4px;
+    height: 2.1875rem;
+    padding: .2083rem;
+
+    .h3 {
+      margin: 0;
+      font-size: .1875rem;
+      font-weight: bold;
+      color: #B94B02;
+      cursor: default;
+    }
+  }
+
+  .set_item_left {
+    width: 2.4rem;
+
+    .item {
+      margin: .08rem 0;
+
+      &:nth-child(2) {
+        margin-bottom: .26rem;
+      }
+
+      .check_icon {
+        position: relative;
+        padding: 0 .05rem;
+        width: .58rem;
+        height: .1563rem;
+        font-size: .12rem;
+        color: #FDFDFD;
+        background-color: #D49265;
+        border-radius: .0781rem;
+        box-shadow: inset 0 .01rem .04rem #9B6240;
+
+        span {
+          flex: 1;
+          text-align: center;
+          cursor: default;
+        }
+
+        .icon {
+          position: absolute;
+          top: -.05rem;
+          left: 0.015rem;
+          width: .3073rem;
+          height: .2552rem;
+          background: url('../../../assets/images/user/popup/on_off_icon.png') no-repeat;
+          background-size: contain;
+          transition: all .3s ease-in;
+        }
+
+        .icon_off {
+          left: .26rem;
+        }
+      }
+
+      .music_bar {
+        position: relative;
+        width: 100%;
+        height: .1771rem;
+        background-color: #D49265;
+        border-radius: .0885rem;
+        box-shadow: inset 0 .01rem .04rem #9B6240;
+
+        .bar_icon {
+          position: absolute;
+          top: -0.04rem;
+          left: 0;
+          width: .3073rem;
+          height: .2552rem;
+          background: url('../../../assets/images/user/popup/on_off_icon.png') no-repeat;
+          background-size: contain;
+          transition: all .3s ease;
+        }
+      }
+
+      .range {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        input {
+          width: 100%;
+          cursor: default;
+          opacity: 0;
+          z-index: 9;
+        }
+      }
+    }
+  }
+
+  .set_item_right {
+    width: 3.4rem;
+    .scene{
+
+      flex: 1;
+      margin-top: .15rem;
+      background: url('../../../assets/images/user/popup/sz_04.png') center no-repeat;
+      background-size:100% 100%;
+      overflow: hidden;
+    }
+  }
+
+  .btn {
+    width: 1.4063rem;
+    height: .4792rem;
+    margin-top: .21rem;
+    background: url('../../../assets/images/user/popup/sz_05.png') no-repeat;
+    background-size: contain;
+  }
+}
+
+
+// range中心圆点
+input[type="range"]::-webkit-slider-thumb {
+  width: .3073rem;
+  height: .2552rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: .3073rem;
+  height: .2552rem;
+}
+
+input[type="range"]::-ms-thumb {
+  width: .3073rem;
+  height: .2552rem;
+}
+
+input[type="range"]::slider-thumb {
+  width: .3073rem;
+  height: .2552rem;
+}
+
+// range轨道
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: .2552rem;
+  z-index: 3;
+}
+
+input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: .2552rem;
+}
+
+input[type="range"]::-ms-track {
+  width: 100%;
+  height: .2552rem;
+}

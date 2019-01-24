@@ -1,0 +1,76 @@
+
+.body{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/images/user/dl_0.jpg') center no-repeat;
+  background-size: cover;
+}
+.container {
+  .loginbox{
+    width: 868px;
+    height: 620px;
+    background: url('../../../assets/images/user/dl_01.png');
+    background-size: cover;
+    header{
+      height: 106px;
+      padding: 16px;
+    }
+    .formbox{
+      width: 782px;
+      height: 400px;
+      margin: 10px 0;
+      padding-top: 50px;
+      position: relative;
+      .errtip{
+        position: absolute;
+        top: 24px;
+        left:280px;
+        font-size: 16px;
+        color: red;
+      }
+      .formitem{
+        width: 508px;
+        height: 70px;
+        background: url('../../../assets/images/user/dl_03.png')center no-repeat;
+        background-size: contain;
+        margin-bottom: 24px;
+        .title{
+          width: 140px;
+          padding-left: 20px;
+        }
+        input{
+          width: 340px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 20px;
+          padding-left: 8px;
+          background-color: transparent;
+          border: none;
+          outline: none;
+
+        }
+      }
+      .formlink{
+        width: 508px;
+        padding: 0 30px;
+        margin-bottom: 24px;
+        a{
+          font-size: 24px;
+          color: #9F4100;
+          cursor: pointer;
+        }
+      }
+      .formbtn{
+        width: 500px;
+        height: 64px;
+        background: url('../../../assets/images/user/dl_06.png')center no-repeat;
+        background-size: contain;
+        cursor: pointer;
+      }
+    }
+  }
+
+}

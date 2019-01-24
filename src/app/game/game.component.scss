@@ -1,0 +1,69 @@
+.appbox {
+  -ms-touch-action: none;
+  position: relative;
+  overflow: hidden;
+  background-color: #FEFBEA;
+  // background: url('../../assets/images/home/dt_bg.jpg') no-repeat;
+  // background-size: cover;
+
+  .gamebox {
+    position: absolute;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+    -webkit-transform-origin: 0% 0% 0px;
+    transform-origin: 0% 0% 0px;
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    // transform: matrix(0, 1, -1, 0, 0, 0);
+  }
+
+  .public_popups {
+    position: absolute;
+    top: 0;
+    -webkit-transform-origin: 0% 0% 0px;
+    transform-origin: 0% 0% 0px;
+    -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    background-color: rgba($color: #000000, $alpha: .6);
+    z-index: 9;
+
+  }
+
+
+  .rotate {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform: matrix(0, 1, -1, 0, 0, 0);
+    transform: matrix(0, 1, -1, 0, 0, 0);
+    // transform: matrix(1, 0, 0, 1, 0, 0);
+  }
+
+
+  .loding {
+    width: 90px;
+    height: 90px;
+    background: url('../../assets/images/loding_bg_01.png') no-repeat;
+    background-size: contain;
+    -webkit-animation: circle 1s infinite linear;
+    animation: circle 1s infinite linear;
+    /*匀速 循环*/
+  }
+
+
+
+}
+
+@-webkit-keyframes circle {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+}

@@ -1,0 +1,266 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/normalize.css/normalize.css";
+
+body,
+div,
+span,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+code,
+del,
+dfn,
+em,
+img,
+q,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+tbody,
+tfoot,
+thead,
+article,
+aside,
+dialog,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  font-size: 30px;
+}
+
+body {
+  font-family: "Microsoft Yahei", "Arial", "Helvetica", "STHeiti", sans-serif;
+  font-size: 14px;
+  background: white;
+  color: #333;
+}
+
+ol,ul,li {
+  list-style: none;
+}
+
+input,select {
+  margin: 0;
+}
+
+:focus {
+  outline: 0;
+}
+
+a {
+  color: #005ea7;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p,a,td {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+img {
+  border: none;
+}
+
+textarea {
+  resize: none;
+  border: 1px solid #ccc;
+}
+
+textarea:hover {
+  border-color: #ccc;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small,
+.h1 small,
+.h2 small,
+.h3 small,
+.h4 small,
+.h5 small,
+.h6 small,
+h1 .small,
+h2 .small,
+h3 .small,
+h4 .small,
+h5 .small,
+h6 .small,
+.h1 .small,
+.h2 .small,
+.h3 .small,
+.h4 .small,
+.h5 .small,
+.h6 .small {
+  font-weight: normal;
+  line-height: 1;
+  color: #777;
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+h1 small,
+.h1 small,
+h2 small,
+.h2 small,
+h3 small,
+.h3 small,
+h1 .small,
+.h1 .small,
+h2 .small,
+.h2 .small,
+h3 .small,
+.h3 .small {
+  font-size: 65%;
+}
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+h4 small,
+.h4 small,
+h5 small,
+.h5 small,
+h6 small,
+.h6 small,
+h4 .small,
+.h4 .small,
+h5 .small,
+.h5 .small,
+h6 .small,
+.h6 .small {
+  font-size: 75%;
+}
+h1,
+.h1 {
+  font-size: 36px;
+}
+h2,
+.h2 {
+  font-size: 30px;
+}
+h3,
+.h3 {
+  font-size: 24px;
+}
+h4,
+.h4 {
+  font-size: 18px;
+}
+h5,
+.h5 {
+  font-size: 14px;
+}
+h6,
+.h6 {
+  font-size: 12px;
+}
+p {
+  margin: 0 0 10px;
+}
+
+
+//  flex布局
+
+.flex-r{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+}
+.flex-c{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: stretch;
+}
+.flex-w{
+  flex-wrap: wrap;
+}
+.jus-cent {
+  justify-content: center;
+}
+.aln-cent {
+  align-items: center;
+}
+.jus-bet {
+  justify-content: space-between;
+}
+.aln-start{
+  align-items: flex-start;
+}
+.flex-no{
+  flex: none;
+}
+.sef-start{
+  align-self: flex-start;
+}

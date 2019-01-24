@@ -1,0 +1,78 @@
+.rulebox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: .1rem;
+  background: url('../../../assets/images/user/popup/grzx_01.png') no-repeat;
+  background-size: contain;
+  .close_icon {
+    position: absolute;
+    right: -.1rem;
+    top: -.1rem;
+    width: .4896rem;
+    height: .4896rem;
+    background: url('../../../assets/images/user/popup/grzx_03.png') no-repeat;
+    background-size: contain;
+  }
+  header {
+    height: .582rem;
+    .headimg {
+      width: .3854rem;
+      height: .1979rem;
+      margin-top: .07rem;
+      background: url('../../../assets/images/user/popup/gz_01.png') no-repeat;
+      background-size: contain;
+    }
+  }
+  .content{
+    flex: 1;
+    padding: 0 .23rem .246rem;
+    .aside_left{
+      width: 1.3021rem;
+      height: 100%;
+      padding: .12rem 0;
+      .navlist{
+        position: relative;
+        li{
+          width: 1.3021rem;
+          height: .4271rem;
+          font-size: .1563rem;
+          font-weight: bold;
+          color: #B94B02;
+          &.active{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1.3646rem;
+            padding-right: .06rem;
+            font-size: .17rem;
+            font-weight: 900;
+            color: white;
+            -webkit-text-stroke: .008rem #B94B02;
+            background: url('../../../assets/images/user/popup/grzx_04.png') no-repeat;
+            background-size: contain;
+          }
+        }
+      }
+    }
+    .contaion{
+      flex: 1;
+      height: 100%;
+      padding: .2rem 0 0 .2rem;
+      overflow-y: auto;
+      .ruleinfo{
+        padding-right: .2rem;
+        p{
+          font-size: .125rem;
+          line-height: .2083rem;
+          margin-bottom: .1rem;
+          color: #9B6C50;
+          .title{
+            font-size: .1563rem;
+            color: #333333;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div id="appbox" class="appbox  flex-r jus-cent" [ngStyle]="{'width': Base.PageWidth+'px', 'height':Base.PageHeight+'px'}">
+
+  <div class="loding">
+  </div>
+
+  <div class="gamebox" [ngStyle]="{
+      'width': Base.canvasWidth+'px',
+      'height': Base.canvasHeight+'px',
+      'left': Base.DirectionX? 0:Base.PageWidth+'px',
+      'backgroundImage': 'url('+Base.Pagebg+')'
+    }"
+    [ngClass]="{rotate: !Base.DirectionX}">
+
+    <router-outlet></router-outlet>
+
+  </div>
+
+  <audio autoplay='autoplay' loop='loop' id="pageBgAudio">浏览器不支持audio</audio>
+
+  <!-- 弹窗页面 -->
+  <ng-container *ngIf="Base.Popup_Page">
+    <div class="public_popups flex-r jus-cent" [ngStyle]="{
+        'width': Base.canvasWidth+'px',
+        'height': Base.canvasHeight+'px',
+        'left': Base.DirectionX? 0:Base.PageWidth+'px'
+      }"
+      [ngClass]="{rotate: !Base.DirectionX}">
+
+      <ng-container *ngIf="Base.Popup_Page===1">
+        <app-setpage></app-setpage>
+      </ng-container>
+
+      <ng-container *ngIf="Base.Popup_Page===2">
+        <app-rule></app-rule>
+      </ng-container>
+
+      <ng-container *ngIf="Base.Popup_Page===3">
+        <app-email></app-email>
+      </ng-container>
+
+    </div>
+  </ng-container>
+
+</div>

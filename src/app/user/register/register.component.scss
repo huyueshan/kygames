@@ -1,0 +1,117 @@
+
+.body{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('../../../assets/images/user/dl_0.jpg') center no-repeat;
+  background-size: cover;
+}
+.container {
+  .loginbox{
+    width: 868px;
+    height: 701px;
+    background: url('../../../assets/images/user/dl_09.png');
+    background-size: cover;
+    header{
+      height: 106px;
+      padding: 16px;
+    }
+    .formbox{
+      width: 782px;
+      height: 472px;
+      margin: 10px 0;
+      padding-top: 50px;
+      position: relative;
+      .errtip{
+        position: absolute;
+        top: 24px;
+        left:280px;
+        font-size: 16px;
+        color: red;
+      }
+      .formitem{
+        width: 508px;
+        height: 70px;
+        background: url('../../../assets/images/user/dl_03.png')center no-repeat;
+        background-size: contain;
+        margin-bottom: 20px;
+        .title{
+          width: 140px;
+          padding-left: 20px;
+        }
+        input{
+          width: 340px;
+          height: 50px;
+          line-height: 50px;
+          font-size: 20px;
+          padding-left: 8px;
+          background-color: transparent;
+          border: none;
+          outline: none;
+
+        }
+      }
+      .formlink{
+        width: 508px;
+        padding: 0 50px;
+        font-size: 16px;
+        margin-bottom: 20px;
+        input[type="checkbox"]{
+          width: 16px;
+          height: 16px;
+          margin-right: 6px;
+        }
+        a{
+          color: #9F4100;
+          cursor: pointer;
+        }
+      }
+      .btnbox{
+        width: 500px;
+        height: 68px;
+        .formbtn{
+          width: 308px;
+          height: 68px;
+          background: url('../../../assets/images/user/dl_12.png') center no-repeat;
+          background-size: contain;
+          cursor: pointer;
+        }
+        .tologin{
+          width: 180px;
+          height: 64px;
+          background: url('../../../assets/images/user/dl_13.png') center no-repeat;
+          background-size: contain;
+          cursor: pointer;
+        }
+
+      }
+    }
+
+    .succeedbox{
+      width: 782px;
+      height: 472px;
+      margin: 10px 0;
+      padding-top: 50px;
+      color: #CD6A1D;
+      .h1{
+        font-weight: 900;
+        margin-bottom: 60px;
+      }
+      p{
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+      .tologin{
+        width: 180px;
+        height: 64px;
+        margin-top: 20px;
+        background: url('../../../assets/images/user/dl_15.png') center no-repeat;
+        background-size: contain;
+        cursor: pointer;
+      }
+    }
+  }
+
+}

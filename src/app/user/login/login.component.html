@@ -1,0 +1,32 @@
+<div class="body flex-r jus-cent">
+  <div class="container flex-c aln-cent">
+    <div class="loginbox flex-c aln-cent">
+      <header class="flex-c aln-cent">
+        <img src="../../../assets/images/user/dl_02.png" alt="登录">
+      </header>
+      <div class="flex-c aln-cent formbox">
+        <span class="errtip">{{errtip}}</span>
+        <span class="flex-r formitem">
+          <span class="flex-r jus-cent title">
+            <img src="../../../assets/images/user/dl_04.png" alt="账号">
+          </span>
+          <input type="text" name="account" placeholder="请输入账号" [(ngModel)]="user.user_name">
+        </span>
+        <span class="flex-r formitem">
+            <span class="flex-r jus-cent title">
+              <img src="../../../assets/images/user/dl_05.png" alt="账号">
+            </span>
+            <input type="password" name="password" placeholder="请输入密码" [(ngModel)]="user.password">
+        </span>
+        <span class="flex-r jus-bet formlink">
+          <a routerLink="/register">用户注册</a>
+          <a href="#">忘记密码？</a>
+        </span>
+        <span class="formbtn" (click)="sub()">
+
+        </span>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+.emailbox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: 0.1rem;
+  background: url("../../../assets/images/user/popup/qd_03.png") no-repeat;
+  background-size: contain;
+  .close_icon {
+    position: absolute;
+    right: -0.1rem;
+    top: -0.1rem;
+    width: 0.4896rem;
+    height: 0.4896rem;
+    background: url("../../../assets/images/user/popup/grzx_03.png") no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: 0.582rem;
+    .headimg {
+      width: 0.3854rem;
+      height: 0.1979rem;
+      margin-top: 0.07rem;
+      background: url("../../../assets/images/user/popup/yj_01.png") no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 0.23rem 0.246rem;
+    p {
+      font-size: 0.16rem;
+      margin-bottom: 0.01rem;
+      color: #8f3101;
+    }
+    .table {
+      padding: 0.2083rem 0 0.0833rem;
+      .table_btn {
+        position: relative;
+        width: 0.8229rem;
+        height: 0.3646rem;
+        font-size: 0.125rem;
+        color: white;
+        text-shadow: 0 0.0104rem 0.0313rem #333;
+        span {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: default;
+        }
+        .email {
+          background: url("../../../assets/images/user/popup/yj_02.png")
+            no-repeat;
+          background-size: contain;
+        }
+        .mess {
+          background: url("../../../assets/images/user/popup/yj_04.png")
+            no-repeat;
+          background-size: contain;
+        }
+        .scale {
+          -moz-transform: scaleX(-1);
+          -webkit-transform: scaleX(-1);
+          -o-transform: scaleX(-1);
+          transform: scaleX(-1);
+          filter: FlipH;
+        }
+      }
+    }
+
+    .contaion {
+      flex: 1;
+      overflow: hidden;
+      overflow-y: auto;
+
+      .item {
+        background: url("../../../assets/images/user/popup/yj_06.png") no-repeat;
+        background-size: contain;
+        width: 5.6146rem;
+        height: 0.6667rem;
+        padding: 0.0833rem;
+        margin: 0.0625rem 0;
+        .face {
+          width: 0.5rem;
+          height: 0.5rem;
+          border-radius: 50%;
+          overflow: hidden;
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+        .info {
+          flex: 1;
+          padding: 0.03rem 0.1rem;
+          overflow-y: auto;
+          strong {
+            font-size: 0.16rem;
+            margin: 0 0 0.04rem 0;
+            font-weight: bold;
+            color: #8f3101;
+          }
+        }
+
+        .time {
+          width: 0.5rem;
+          font-size: 0.08rem;
+          color: white;
+          text-align: center;
+        }
+      }
+    }
+    footer {
+      padding: 0.12rem 0;
+      p {
+        margin: 0;
+      }
+      .btn {
+        width: 0.6979rem;
+        height: 0.25rem;
+        margin: 0 0.1rem;
+        background: url("../../../assets/images/user/popup/yj_07.png") no-repeat;
+        background-size: contain;
+      }
+    }
+  }
+}

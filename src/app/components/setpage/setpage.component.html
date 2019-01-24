@@ -1,0 +1,52 @@
+<div class="setbox flex-c">
+  <span class="close_icon" (click)="Base.Popup_Page = 0"></span>
+  <header class="flex-r jus-cent aln-start">
+    <span class="headimg"></span>
+  </header>
+  <div class="content flex-r jus-bet">
+    <div class="set_item_left flex-c jus-cent">
+      <div class="item flex-r jus-bet">
+        <span class="h3 flex-r flex-no">背景音乐</span>
+        <span class="check_icon flex-r jus-bet">
+          <span (click)="onOff('bg_music', false)">ON</span>
+          <span (click)="onOff('bg_music', true)">OFF</span>
+          <i class="icon" [ngClass]="{ icon_off: Base.Music.bg_music.switch }"></i>
+        </span>
+      </div>
+      <div class="item flex-r jus-bet">
+        <span class="music_bar">
+          <i class="bar_icon" [ngStyle]="{ left: Base.Music.bg_music.value*85 + '%' }"></i>
+          <span class="flex-r range">
+            <input type="range" name="point_game" min="0" max="1" step=".01" [(ngModel)]="Base.Music.bg_music.value"
+              (change)="rangeChange('bg_music')" />
+          </span>
+        </span>
+      </div>
+
+      <div class="item flex-r jus-bet">
+        <span class="h3 flex-r flex-no">游戏音乐</span>
+        <span class="check_icon flex-r jus-bet">
+          <span (click)="onOff('game_music', false)">ON</span>
+          <span (click)="onOff('game_music', true)">OFF</span>
+          <i class="icon" [ngClass]="{ icon_off: Base.Music.game_music.switch }"></i>
+        </span>
+      </div>
+      <div class="item flex-r jus-bet">
+        <span class="music_bar">
+          <i class="bar_icon" [ngStyle]="{ left: Base.Music.game_music.value*85 + '%' }"></i>
+          <span class="flex-r range">
+            <input type="range" name="point_game" min="0" max="1" step=".01" [(ngModel)]="Base.Music.game_music.value"
+              (change)="rangeChange('game_music')" />
+          </span>
+        </span>
+      </div>
+    </div>
+    <div class="set_item_right flex-c">
+      <span class="h3">场景更换</span>
+      <div class="scene">
+      </div>
+
+    </div>
+  </div>
+  <footer class="flex-r jus-cent"><span class="btn"></span></footer>
+</div>

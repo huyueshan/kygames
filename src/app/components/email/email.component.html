@@ -1,0 +1,112 @@
+<div class="emailbox flex-c">
+  <span class="close_icon" (click)="Base.Popup_Page = 0"></span>
+  <header class="flex-r jus-cent aln-start">
+    <span class="headimg"></span>
+  </header>
+  <div class="content flex-c">
+    <header class="table flex-r jus-cent">
+      <span class="table_btn">
+        <span
+          [ngClass]="{
+            email: cur_table == 0 ? true : false,
+            mess: cur_table == 0 ? false : true,
+            scale: cur_table == 0 ? false : true
+          }"
+        ></span>
+        <span class=" flex-r jus-cent" (click)="cur_table = 0"> 邮件 </span>
+      </span>
+      <span class="table_btn">
+        <span
+          [ngClass]="{
+            mess: cur_table == 0 ? true : false,
+            email: cur_table == 0 ? false : true,
+            scale: cur_table == 0 ? false : true
+          }"
+        ></span>
+        <span class=" flex-r jus-cent" (click)="cur_table = 1">系统消息</span>
+      </span>
+    </header>
+
+    <ng-container *ngIf="cur_table == 0">
+      <div class="contaion flex-c aln-cent">
+        <section class="item flex-r jus-bet flex-no">
+          <span class="face">
+            <img
+              src="../../../assets/images/user/popup/grzx_06.png"
+              alt="face"
+            />
+          </span>
+          <span class="info flex-c">
+            <strong>签到奖励</strong>
+            <p>送你100豆</p>
+          </span>
+          <span class="time">13分钟前</span>
+        </section>
+
+        <section class="item flex-r jus-bet flex-no">
+          <span class="face">
+            <img
+              src="../../../assets/images/user/popup/grzx_06.png"
+              alt="face"
+            />
+          </span>
+          <span class="info flex-c">
+            <p>
+              您于15:30领取了签到奖励，获得<strong>1个新版本升级礼包！</strong>
+            </p>
+          </span>
+          <span class="time">1月04日</span>
+        </section>
+      </div>
+      <footer class="flex-r jus-cent">
+        <p>所有邮件最多保存60封，保存30天哦</p>
+        <span class="btn"></span>
+      </footer>
+    </ng-container>
+
+    <ng-container *ngIf="cur_table == 1">
+      <div class="contaion flex-c aln-cent">
+        <section class="item flex-r jus-bet flex-no">
+          <span class="face">
+            <img
+              src="../../../assets/images/user/popup/grzx_06.png"
+              alt="face"
+            />
+          </span>
+          <span class="info flex-c"> <p>送你100豆</p> </span>
+          <span class="time">13分钟前</span>
+        </section>
+
+        <section class="item flex-r jus-bet flex-no">
+          <span class="face">
+            <img
+              src="../../../assets/images/user/popup/grzx_06.png"
+              alt="face"
+            />
+          </span>
+          <span class="info flex-c">
+            <p>
+              您于15:30领取了签到奖励，获得<strong>1个新版本升级礼包！</strong>
+            </p>
+          </span>
+          <span class="time">1月04日</span>
+        </section>
+
+        <section class="item flex-r jus-bet flex-no">
+          <span class="face">
+            <img
+              src="../../../assets/images/user/popup/grzx_06.png"
+              alt="face"
+            />
+          </span>
+          <span class="info flex-c">
+            <p>
+              您于15:30领取了签到奖励，获得<strong>1个新版本升级礼包！</strong>
+            </p>
+          </span>
+          <span class="time">1月04日</span>
+        </section>
+      </div>
+    </ng-container>
+  </div>
+</div>
