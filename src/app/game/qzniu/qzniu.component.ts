@@ -41,7 +41,7 @@ export class QzniuComponent implements OnInit {
   }
   ngAfterViewInit() {
     // 设置背景音乐
-    this.Base.Music.bg_music.dom.src = "../../assets/media/qzniu/game.mp3";
+    Utils.FN.play_bg_music(this.Base.Music.bg_music.dom, "../../assets/media/qzniu/game.mp3");
   }
 
   ngOnDestroy() {
@@ -98,6 +98,7 @@ export class QzniuComponent implements OnInit {
             "A_top_coin",
             "I_top_rest",
             "I_top_rest_add",
+            "I_top_record",
             "I_top_rule",
             "I_top_set",
             "A_top_delay",
@@ -413,6 +414,12 @@ export class QzniuComponent implements OnInit {
             o.ob.eventdata.click &&
               o.ob.eventdata.click(_that.Store, function() {
                 console.log("点击了矩形 :", o.ob);
+
+                // 触发点击音效
+                Utils.FN.play_game_music(
+                  _that.Base.Music.game_music.doms,
+                  "../../../../assets/media/qzniu/anniu.mp3"
+                );
               });
             return;
           }
@@ -424,6 +431,12 @@ export class QzniuComponent implements OnInit {
             o.ob.eventdata.click &&
               o.ob.eventdata.click(_that.Store, function() {
                 console.log("点击了圆形 :", o.ob);
+
+                // 触发点击音效
+                Utils.FN.play_game_music(
+                  _that.Base.Music.game_music.doms,
+                  "../../../../assets/media/qzniu/anniu.mp3"
+                );
               });
             return;
           }

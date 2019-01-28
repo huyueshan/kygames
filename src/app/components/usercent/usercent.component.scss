@@ -1,0 +1,243 @@
+.centbox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: .1rem;
+  background: url('../../../assets/images/user/popup/grzx_01.png') no-repeat;
+  background-size: contain;
+
+  .close_icon {
+    position: absolute;
+    right: -.1rem;
+    top: -.1rem;
+    width: .4896rem;
+    height: .4896rem;
+    background: url('../../../assets/images/user/popup/grzx_03.png') no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: .582rem;
+
+    .headimg {
+      width: .7604rem;
+      height: .1979rem;
+      margin-top: .07rem;
+      background: url('../../../assets/images/user/popup/grzx_02.png') no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 .23rem .246rem;
+
+    .aside_left {
+      width: 1.3021rem;
+      height: 100%;
+      padding: .12rem 0;
+
+      .navlist {
+        position: relative;
+
+        li {
+          width: 1.3021rem;
+          height: .4271rem;
+          font-size: .1563rem;
+          font-weight: bold;
+          color: #B94B02;
+          cursor: default;
+
+          &.active {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1.3646rem;
+            padding-right: .06rem;
+            font-size: .17rem;
+            font-weight: 900;
+            color: white;
+            -webkit-text-stroke: .008rem #B94B02;
+            background: url('../../../assets/images/user/popup/grzx_04.png') no-repeat;
+            background-size: cover;
+          }
+        }
+      }
+    }
+
+    .contaion {
+      flex: 1;
+      height: 100%;
+      padding: .2604rem .2rem;
+      font-size: .125rem;
+      color: #B94B02;
+      overflow: hidden;
+
+      &>div {
+        height: 100%;
+      }
+
+      .c_gray {
+        color: #111;
+      }
+
+      .userbox {
+        height: 100%;
+
+        .head_left {
+          .facebox {
+            width: .5729rem;
+            height: .5729rem;
+            margin-right: .16rem;
+
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+
+          .userinfo {
+            strong {
+              font-size: .1563rem;
+              margin-bottom: .05rem;
+            }
+          }
+
+          i.money_01 {
+            display: inline-block;
+            width: .1771rem;
+            height: .1771rem;
+            background: url("../../../assets/images/user/popup/qd_12.png") no-repeat;
+            background-size: contain;
+            margin-right: .05rem;
+          }
+
+          .balance {
+            min-width: 1rem;
+            margin-right: .05rem;
+
+          }
+
+          .btn {
+            display: inline-block;
+            width: .8229rem;
+            height: .3125rem;
+            margin: 0 .05rem;
+            background: url("../../../assets/images/user/popup/grzx_09.png") no-repeat;
+            background-size: cover;
+          }
+
+        }
+
+        .head_right {
+          i.position {
+            display: inline-block;
+            width: .125rem;
+            height: .125rem;
+            background: url('../../../assets/images/user/popup/grzx_07.png') no-repeat;
+            background-size: cover;
+            margin: 0 .1rem;
+
+          }
+        }
+
+        .gamesbox {
+          position: relative;
+          height: .48rem;
+          margin: .2083rem 0;
+          background-color: white;
+          overflow: hidden;
+
+          .dragbox {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: .5rem;
+            width: 5.6rem;
+
+            li {
+              width: .8229rem;
+              height: .375rem;
+              line-height: .3125rem;
+              background: url('../../../assets/images/user/popup/grzx_11.png') no-repeat;
+              background-size: cover;
+              margin: 0 .05rem;
+
+              img {
+                height: .1823rem;
+                width: auto;
+                margin-bottom: .05rem;
+              }
+
+              &.active {
+                background: url('../../../assets/images/user/popup/grzx_10.png') no-repeat;
+                background-size: cover;
+
+              }
+            }
+          }
+        }
+
+        .showcase {
+          flex: 1;
+          margin: .2rem 0 0;
+          border: 1px solid #333;
+          border-radius: .0313rem;
+          background-color: #FBF5DC;
+          padding: .05rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+
+          .show_qzniu {
+            height: 100%;
+
+            li {
+              width: .5104rem;
+              height: .6771rem;
+              margin: .02rem;
+            }
+          }
+        }
+
+      }
+
+      .acbox {
+        height: 100%;
+
+        label {
+          margin: .05rem 0;
+
+          .title {
+            width: .6rem;
+          }
+
+          input {
+            width: 2rem;
+            height: .26rem;
+            padding: 0 .02rem;
+            border: 1px solid #B94B02;
+            background-color: transparent;
+          }
+        }
+
+        .btn {
+          width: .8229rem;
+          height: .375rem;
+          margin: .2rem .6rem;
+          background: url('../../../assets/images/user/popup/grzx_10.png') no-repeat;
+          background-size: cover;
+
+          img {
+            width: .3281rem;
+            height: .1823rem;
+            margin-bottom: .05rem;
+          }
+        }
+
+      }
+    }
+  }
+}

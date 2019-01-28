@@ -15,25 +15,25 @@ export class SetpageComponent implements OnInit {
     let M = this.Base.Music;
     M[name].switch = value;
     M[name].value = value ? 0.6 : 0;
-    try {
-      M[name].dom.volume = M[name].value;
-      if (M[name].players && M[name].players.lenght) {
-        for (let i = 0; i < M[name].players.lenght; i++) {
-          M[name].players[i].volume = M[name].value;
-        }
+
+    if (M[name].doms) {
+      for (let i = 0; i < M[name].doms.length; i++) {
+        M[name].doms[i].volume = M[name].value;
       }
-    } catch (error) { }
+    } else {
+      M[name].dom.volume = M[name].value;
+    }
   }
   public rangeChange(name) {
     let M = this.Base.Music;
     M[name].switch = M[name].value <= 0 ? false : true;
-    try {
-      M[name].dom.volume = M[name].value;
-      if (M[name].players && M[name].players.lenght) {
-        for (let i = 0; i < M[name].players.lenght; i++) {
-          M[name].players[i].volume = M[name].value;
-        }
+
+    if (M[name].doms) {
+      for (let i = 0; i < M[name].doms.length; i++) {
+        M[name].doms[i].volume = M[name].value;
       }
-    } catch (error) {}
+    } else {
+      M[name].dom.volume = M[name].value;
+    }
   }
 }

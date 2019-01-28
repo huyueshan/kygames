@@ -1,0 +1,31 @@
+<div class="recordbox flex-c">
+  <span class="close_icon" (click)="Base.Popup_Page = 0"></span>
+  <header class="flex-r jus-cent aln-start">
+    <span class="headimg"></span>
+  </header>
+  <div class="content">
+    <div class="container flex-c jus-bet">
+      <div class="tablebox">
+        <table>
+          <tr>
+            <th style="width:10%">序号</th>
+            <th style="width:30%">牌局编号</th>
+            <th style="width:15%">房间</th>
+            <th style="width:15%">盈亏</th>
+            <th>结束时间</th>
+          </tr>
+          <tbody>
+            <tr *ngFor="let item of data; let i = index">
+              <td>{{i+1}}</td>
+              <td>1234567890123456</td>
+              <td>王者房</td>
+              <td>+1000</td>
+              <td>2018-12-17 10:45:00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <footer class="flex-r jus-cent">展示最近10条游戏记录</footer>
+    </div>
+  </div>
+</div>

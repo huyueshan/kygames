@@ -15,7 +15,6 @@
 
   </div>
 
-  <audio autoplay='autoplay' loop='loop' id="pageBgAudio">浏览器不支持audio</audio>
 
   <!-- 弹窗页面 -->
   <ng-container *ngIf="Base.Popup_Page">
@@ -26,16 +25,39 @@
       }"
       [ngClass]="{rotate: !Base.DirectionX}">
 
+      <!-- 设置 -->
       <ng-container *ngIf="Base.Popup_Page===1">
         <app-setpage></app-setpage>
       </ng-container>
 
+      <!-- 规则 -->
       <ng-container *ngIf="Base.Popup_Page===2">
         <app-rule></app-rule>
       </ng-container>
 
+      <!-- 邮件 -->
       <ng-container *ngIf="Base.Popup_Page===3">
         <app-email></app-email>
+      </ng-container>
+
+      <!-- 签到 -->
+      <ng-container *ngIf="Base.Popup_Page===4">
+        <app-signin></app-signin>
+      </ng-container>
+
+      <!-- 记录 -->
+      <ng-container *ngIf="Base.Popup_Page===5">
+        <app-record></app-record>
+      </ng-container>
+
+      <!-- 反馈 -->
+      <ng-container *ngIf="Base.Popup_Page===6">
+        <app-feedback></app-feedback>
+      </ng-container>
+
+      <!-- 个人中心 -->
+      <ng-container *ngIf="Base.Popup_Page===7">
+        <app-usercent></app-usercent>
       </ng-container>
 
     </div>

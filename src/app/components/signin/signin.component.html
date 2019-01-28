@@ -1,0 +1,52 @@
+<div class="signbox flex-c">
+  <span class="close_icon" (click)="Base.Popup_Page = 0"></span>
+  <header class="flex-r jus-cent aln-start">
+    <span class="headimg"></span>
+  </header>
+  <div class="content flex-c">
+    <div class="container">
+      <div class="main flex-r jus-bet aln-start">
+        <ul class="area-main flex-r aln-start flex-w">
+          <li class="itme_s flex-c jus-bet aln-cent" *ngFor="let item of qddata.beforedays">
+            <header class="flex-r">{{item.name}}</header>
+            <span class="moneybox flex-c aln-cent jus-cent" [ngClass]="{active: item.active}">
+              <img src="../../../assets/images/user/popup/qd_06.png" alt="金币">
+              <footer>
+                金币 ×{{item.money}}
+              </footer>
+            </span>
+          </li>
+          <li class="itme_b flex-c jus-bet aln-cent">
+              <header class="flex-r">{{qddata.lastday.name}}</header>
+              <span class="moneybox flex-c aln-cent jus-cent" [ngClass]="{active: qddata.lastday.active}">
+                <img src="../../../assets/images/user/popup/qd_06.png" alt="金币">
+                <footer>
+                  金币 ×{{qddata.lastday.money}}
+                </footer>
+              </span>
+          </li>
+        </ul>
+        <div class="area-right flex-c aln-cent">
+            <header class="flex-r"> 已连续签到1天</header>
+            <span class="moneybox flex-c aln-cent jus-cent" [ngClass]="{active: qddata.lastday.active}">
+              <img src="../../../assets/images/user/popup/qd_09.png" alt="连续签到7天礼包">
+
+              <span>连续7天后每天额外赠送</span>
+              <span class="flex-r">
+                <i class="money_01"></i>
+                  金币 ×1000
+              </span>
+              <footer>
+                <span class="btn"></span>
+              </footer>
+            </span>
+
+        </div>
+
+      </div>
+      <div class="flex-r jus-cent">
+        <span class="btn"></span>
+      </div>
+    </div>
+  </div>
+</div>

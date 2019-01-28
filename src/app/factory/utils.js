@@ -393,16 +393,38 @@ const FN = {
     return newarr;
   },
 
-  // 播放音乐
-  playmusic(audio, src) {
+  // 播放背景音乐
+  play_bg_music(audio, src) {
     const promise = new Promise((resolve, reject) => {
       audio.src = src;
-      resolve();
+      audio.load();
+      setTimeout(() => {
+        resolve();
+      }, 100);
     });
     promise.then(() => {
       audio.play();
     });
-  }
+  },
+  // 移动端触屏后播放背景音乐
+  mobile_bg_music(audio, src) {
+    if (audio.paused) {
+      this.play_bg_music(audio, src)
+    }
+  },
+  // 播放游戏音效
+  play_game_music(audios, src) {
+    let len = audios.length;
+    for (let i = 0; i < len; i++) {
+      if (audios[i].paused) {
+        audios[i].src = src;
+        audios[i].play();
+        return true
+      }
+    }
+    console.log("播放音效失败");
+    return false
+  },
 
 
 };

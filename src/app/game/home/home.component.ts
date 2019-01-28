@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit() {
     // 设置背景音乐
-    this.Base.Music.bg_music.dom.src = "../../assets/media/home.mp3";
+    Utils.FN.play_bg_music(this.Base.Music.bg_music.dom, "../../assets/media/home.mp3");
   }
 
   ngOnDestroy() {
@@ -91,7 +91,8 @@ export class HomeComponent implements OnInit {
             "I_top_left_userface",
             "I_top_left_linbg",
             "A_top_coin",
-            "I_top_left_rest",
+            "I_top_rest",
+            "I_top_rest_add",
             "I_top_right_out",
             "I_top_right_set",
             "I_top_right_emal",
@@ -291,6 +292,9 @@ export class HomeComponent implements OnInit {
   }
 
   public canvasclick(e) {
+    // 设置背景音乐 移动端
+    Utils.FN.mobile_bg_music(this.Base.Music.bg_music.dom, "../../assets/media/home.mp3");
+
     let _that = this;
 
     let ME = { x: e.offsetX, y: e.offsetY };
@@ -303,6 +307,12 @@ export class HomeComponent implements OnInit {
             o.ob.eventdata.click &&
               o.ob.eventdata.click(_that.Hst, function() {
                 console.log("点击了矩形 :", o.ob);
+
+                // 触发点击音效
+                Utils.FN.play_game_music(
+                  _that.Base.Music.game_music.doms,
+                  "../../../../assets/media/qzniu/anniu.mp3"
+                );
               });
             return;
           }
@@ -314,6 +324,12 @@ export class HomeComponent implements OnInit {
             o.ob.eventdata.click &&
               o.ob.eventdata.click(_that.Hst, function() {
                 console.log("点击了圆形 :", o.ob);
+
+                // 触发点击音效
+                Utils.FN.play_game_music(
+                  _that.Base.Music.game_music.doms,
+                  "../../../../assets/media/qzniu/anniu.mp3"
+                );
               });
             return;
           }

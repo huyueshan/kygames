@@ -85,6 +85,24 @@ export class QzniuStoreService {
       xtl: 747,
       ytt: 40
     },
+    I_top_record: {
+      type: "IMG",
+      src: "../../../assets/images/qzniu/qznn_12.png",
+      uiw: 68,
+      uih: 70,
+      xtr: 390,
+      ytt: 16,
+      padding: 4,
+      shape: "circle",
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.Base.Popup_Page = 5;
+          console.log("点击了记录");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
     I_top_rule: {
       type: "IMG",
       src: "../../../assets/images/qzniu/qznn_07.png",

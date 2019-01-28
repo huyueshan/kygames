@@ -1,0 +1,111 @@
+<div class="centbox flex-c">
+  <span class="close_icon" (click)="Base.Popup_Page = 0"></span>
+  <header class="flex-r jus-cent aln-start">
+    <span class="headimg"></span>
+  </header>
+  <div class="content flex-r">
+    <aside class="aside_left">
+      <ul class="navlist flex-c">
+        <li class="flex-r jus-cent flex-no" *ngFor="let item of navlist; let i=index" (click)='li_click(i,item)'>{{item}}</li>
+        <li class="active flex-r jus-cent" [ngStyle]="{top: cur_nav_index*50 +'%'}">{{act_value}}</li>
+      </ul>
+    </aside>
+    <div class="contaion">
+
+      <div [hidden]="cur_nav_index===1">
+        <div class="userbox flex-c">
+          <header class="flex-r jus-bet">
+            <div class="head_left flex-r">
+              <div class="facebox">
+                <img src="{{'../../../assets/images/common/head_imgs/face_' + Base.userinfo.face + '.png'}}" alt="face">
+              </div>
+              <span class="userinfo flex-c">
+                <strong>ID：{{Base.userinfo.nick_name}}</strong>
+                <footer class="flex-r">
+                  <i class="money_01"></i>
+                  <span class="balance">{{Base.userinfo.balance}}</span>
+                  <span class="btn"></span>
+                </footer>
+              </span>
+
+            </div>
+            <div class="head_right flex-r sef-start">
+              <i class="position"></i>
+              <span>广东 深圳</span>
+            </div>
+
+          </header>
+          <div class="gamesbox" id="gamesbox">
+            <ul class="dragbox flex-r" id="dragbox">
+              <li class="flex-r jus-cent" *ngFor="let item of games; let i = index" [ngClass]="{active: cur_game_index === i}"
+                (click)="cur_game_index = i">
+                <img [src]='item.src' [attr.alt]="item.name" (mousedown)="nodray($event)">
+              </li>
+            </ul>
+          </div>
+          <span> <span class="c_gray"> 最大牌型：</span>五小牛</span>
+          <div class="showcase">
+
+            <ng-container *ngIf="cur_game_index == 0">
+              <ul class="show_qzniu flex-r">
+                <li *ngFor="let item of games[0].max_type">
+                  <img src="{{'../../../assets/images/qzniu/room/pkp/' + item + '.png'}}" alt="">
+                </li>
+              </ul>
+            </ng-container>
+
+            <ng-container *ngIf="cur_game_index == 1">
+              <h2>斗地主最大牌型</h2>
+            </ng-container>
+
+            <ng-container *ngIf="cur_game_index == 2">
+              <h2>炸金花最大牌型</h2>
+            </ng-container>
+
+            <ng-container *ngIf="cur_game_index == 3">
+              <h2>麻将最大牌型</h2>
+            </ng-container>
+
+            <ng-container *ngIf="cur_game_index == 4">
+              <h2>三公最大牌型</h2>
+            </ng-container>
+
+            <ng-container *ngIf="cur_game_index == 5">
+              <h2>德州扑克最大牌型</h2>
+            </ng-container>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div [hidden]="cur_nav_index===0">
+        <div class="acbox flex-c">
+          <label class="flex-r">
+            <span class="title">姓名：</span>
+            <input type="text" name="name" [(ngModel)]="acinfo.name">
+          </label>
+          <label class="flex-r">
+            <span class="title">手机号：</span>
+            <input type="text" name="name" [(ngModel)]="acinfo.phone">
+          </label>
+          <label class="flex-r">
+            <span class="title">邮箱：</span>
+            <input type="text" name="name" [(ngModel)]="acinfo.email">
+          </label>
+          <label class="flex-r">
+            <span class="title">银行卡：</span>
+            <input type="text" name="name" [(ngModel)]="acinfo.bankcard">
+          </label>
+
+          <span class="btn flex-r jus-cent">
+            <img src="../../../assets/images/user/popup/grzx_18.png" alt="save">
+          </span>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

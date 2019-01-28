@@ -1,0 +1,144 @@
+.signbox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: 0.1rem;
+  background: url("../../../assets/images/user/popup/qd_03.png") no-repeat;
+  background-size: contain;
+
+  .close_icon {
+    position: absolute;
+    right: -0.1rem;
+    top: -0.1rem;
+    width: 0.4896rem;
+    height: 0.4896rem;
+    background: url("../../../assets/images/user/popup/grzx_03.png") no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: 0.582rem;
+
+    .headimg {
+      width: 0.3854rem;
+      height: 0.1979rem;
+      margin-top: 0.07rem;
+      background: url("../../../assets/images/user/popup/qd_04.png") no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    flex: 1;
+    padding: 0 0.23rem 0.246rem;
+
+    .container {
+      height: 100%;
+      padding: .2083rem;
+
+      .main {
+        color: #8F3101;
+        font-size: .125rem;
+
+        .area-main {
+          width: 100%;
+
+          .itme_s {
+            width: .9792rem;
+            height: 1.2917rem;
+            background: url("../../../assets/images/user/popup/qd_05.png") no-repeat;
+            background-size: cover;
+            margin: .04rem;
+          }
+
+          .itme_b {
+            width: 2.08rem;
+            height: 1.2917rem;
+            background: url("../../../assets/images/user/popup/qd_08.png") no-repeat;
+            background-size: contain;
+            margin: .04rem;
+          }
+
+          header {
+            height: .3125rem;
+            font-weight: bold;
+          }
+
+          img {
+            width: .6146rem;
+            height: .4583rem;
+          }
+
+          .moneybox {
+            width: 100%;
+            flex: 1;
+
+            footer {
+              margin-top: .1rem;
+            }
+
+            &.active {
+              background: url("../../../assets/images/user/popup/qd_07.png") top center no-repeat;
+              background-size: 100% 100%;
+            }
+          }
+
+        }
+
+        .area-right {
+          width: 2.35rem;
+          height: 2.724rem;
+          background: url("../../../assets/images/user/popup/qd_13.png") no-repeat;
+          background-size: 100% 100%;
+          margin-top: -0.025rem;
+
+          header {
+            height: .6rem;
+            font-size: .1563rem;
+          }
+
+          .moneybox {
+            img {
+              width: 1.2708rem;
+              height: .9167rem;
+              margin-bottom: .2rem;
+            }
+
+            span {
+              margin-bottom: .06rem;
+              font-size: .1rem;
+            }
+
+            i.money_01 {
+              display: inline-block;
+              width: .1771rem;
+              height: .1771rem;
+              background: url("../../../assets/images/user/popup/qd_12.png") no-repeat;
+              background-size: contain;
+              margin: 0 .05rem;
+            }
+          }
+
+          footer {
+            .btn {
+              display: inline-block;
+              width: .9375rem;
+              height: .3333rem;
+              margin: .1rem;
+              background: url("../../../assets/images/user/popup/qd_10.png") no-repeat;
+              background-size: cover;
+            }
+          }
+        }
+      }
+
+      .btn {
+        width: .9375rem;
+        height: .3333rem;
+        margin: .16rem;
+        background: url("../../../assets/images/user/popup/qd_16.png") no-repeat;
+        background-size: cover;
+      }
+    }
+  }
+}

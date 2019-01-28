@@ -17,6 +17,7 @@ export class BaseService {
   public scale: number = this.scaleY; // 画布内容实际需要缩放比
 
   public page_loding: boolean = false;
+
   public Pagebg: any = ""; // 页面背景图
   public page_audio_src = "../../assets/media/home.mp3"; // 页面背景音乐
 
@@ -32,8 +33,7 @@ export class BaseService {
       value: 0.5
     },
     game_music: {
-      dom: null, // 游戏主要动画音乐元素（<audio>元素
-      players: [], // 游戏玩家动画 音乐元素集合（<audio>元素集合）
+      doms:[], // 游戏页面音乐元素集合 <audio>元素
       switch: true,
       value: 0.6
     }
@@ -81,6 +81,7 @@ export class BaseService {
     token: "",
     user_id: 0,
     user_name: "",
-    nick_name: "vip"
+    nick_name: "vip",
+    face: '0'
   };
 }

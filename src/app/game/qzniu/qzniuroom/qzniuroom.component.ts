@@ -64,11 +64,6 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     //   }
     // );
 
-    // TODO: 此处模拟路由跳转初始化页面前显示加载组件
-    setTimeout(() => {
-      this.Base.page_loding = true;
-    }, 10);
-
     // 获取路由参数 确定当前房间
     this.route.params.subscribe(data => {
       if (Object.keys(this.rooms).includes(data.id)) {
@@ -97,21 +92,25 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     this.CTX = this.ctxele.getContext("2d");
 
     this.init();
+
     // 设置背景音乐
-    this.Base.Music.bg_music.dom.src = "../../assets/media/qzniu/douniuqu.mp3";
-
-    this.Base.Music.game_music.dom = this.el.nativeElement.querySelector(
-      "#gameAudio"
-    );
-    this.Base.Music.game_music.players = this.el.nativeElement.querySelectorAll(
-      "[class^='playerAudio_']"
+    Utils.FN.play_bg_music(
+      this.Base.Music.bg_music.dom,
+      "../../assets/media/qzniu/game.mp3"
     );
 
-    this.Base.Music.game_music.dom.volume = this.Base.Music.game_music.value;
-    let pls = this.Base.Music.game_music.players;
-    for (let i = 0; i < pls.length; i++) {
-      pls[i].volume = this.Base.Music.game_music.value;
-    }
+    // this.Base.Music.game_music.dom = this.el.nativeElement.querySelector(
+    //   "#gameAudio"
+    // );
+    // this.Base.Music.game_music.players = this.el.nativeElement.querySelectorAll(
+    //   "[class^='playerAudio_']"
+    // );
+
+    // this.Base.Music.game_music.dom.volume = this.Base.Music.game_music.value;
+    // let pls = this.Base.Music.game_music.players;
+    // for (let i = 0; i < pls.length; i++) {
+    //   pls[i].volume = this.Base.Music.game_music.value;
+    // }
   }
 
   ngOnDestroy() {
@@ -144,7 +143,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         id: "00000", // 玩家ID
         face: 0, // 显示玩家的头像,目前定义0~9  10张用户头像
         balance: 0, // 玩家余额
-        gender:1, // 玩家性别 0：女 1：男
+        gender: 1, // 玩家性别 0：女 1：男
         qz_times: -1, // 抢庄倍数 初始-1
         xz_times: -1, // 下注倍数 初始-1
         pkps: [], //玩家拿到的牌
@@ -160,7 +159,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         id: "00001",
         face: 0,
         balance: 6888.88,
-        gender:0,
+        gender: 0,
         qz_times: -1,
         xz_times: -1,
         pkps: [],
@@ -176,7 +175,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         id: "00002",
         face: 0,
         balance: 0,
-        gender:1,
+        gender: 1,
         qz_times: -1,
         xz_times: -1,
         pkps: [],
@@ -193,7 +192,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         id: "00003",
         face: 0,
         balance: 0,
-        gender:0,
+        gender: 0,
         xz_times: -1,
         pkps: [],
         pin_ok: false,
@@ -218,17 +217,19 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       let arr = Array.from(setdata);
       return arr;
     })(_that);
+
     // 临时随机定义玩家数据 TODO ： 连接后台数据后删除
     for (let i = 0; i < 4; i++) {
       let name = "player" + i;
       ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
       ST.STATE[name].face = Utils.FN.Random(0, 9);
       ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
+      ST.STATE[name].gender = Utils.FN.Random(0, 1);
       ST.STATE[name].pkp_type = Utils.FN.Random(0, 14);
       ST.STATE[name].result = Utils.FN.Random(-5000, 10000);
       ST.STATE[name].doubling = Utils.FN.Random(1, 20);
-      ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
     }
+    ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
 
     let computeScale = -1; // 监听窗口大小变化后的画布比例变化
     let computeState = -1; // 监听绘画状态变化
@@ -298,6 +299,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         "A_top_coin",
         "I_top_rest",
         "I_top_rest_add",
+        "I_top_record",
         "I_top_rule",
         "I_top_set",
         "A_top_delay",
@@ -334,11 +336,22 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           break;
         case 5:
           _that.set_pkp_animate(); // 设置发牌数据
-          ST.STATE.step = 6;
+          // 触发发牌音效
+          Utils.FN.play_game_music(
+            _that.Base.Music.game_music.doms,
+            "../../../../assets/media/qzniu/fapai.mp3"
+          );
           ST.STATE.animate = 5;
+          ST.STATE.player0.animate = 5;
           ST.STATE.player1.animate = 5;
           ST.STATE.player2.animate = 5;
           ST.STATE.player3.animate = 5;
+          ST.STATE.step = 6;
+
+          // 随机设置其他玩家下倍数 TODO : 连接后台数据需删除
+          ST.STATE.player1.xz_times = Utils.FN.Random(1, 15);
+          ST.STATE.player2.xz_times = Utils.FN.Random(1, 15);
+          ST.STATE.player3.xz_times = Utils.FN.Random(1, 15);
           break;
         case 6:
           Utils.FN.DrawObj(ctx, ST, [
@@ -485,6 +498,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               let name = "player" + i;
               ST.STATE[name].qz_times > 0 && qzs_play.push(i);
             }
+            Utils.FN.play_game_music(
+              _that.Base.Music.game_music.doms,
+              "../../../../assets/media/qzniu/xuanzhuang.mp3"
+            );
           }
           break;
         case 2:
@@ -525,15 +542,15 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
 
             // 当玩家不是庄家时分配下注倍数
             if (ST.STATE.play_zhuang !== 0) {
-              xz_data = [2, 3, 6, 8, 15];
+              xz_data = [1, 3, 6, 8, 15];
               for (let i = 0; i < 5; i++) {
                 let name = "I_btn_bet_" + i;
                 let value = xz_data[i] > 0 ? xz_data[i] : 1;
                 ST.CVDATA[name].store["value"] = value; // 设置对象下注倍数按钮的倍数
               }
             }
-            Utils.FN.playmusic(
-              _that.Base.Music.game_music.dom,
+            Utils.FN.play_game_music(
+              _that.Base.Music.game_music.doms,
               "../../../../assets/media/qzniu/dinzhuang.mp3"
             );
           }
@@ -660,21 +677,13 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           if (pla0_timer_2) {
             ST.STATE.player0.xz_times =
               ST.STATE.player0.xz_times < 1 ? 1 : ST.STATE.player0.xz_times;
-            ST.STATE.player0.animate = 4;
+            // ST.STATE.player0.animate = 4;
             ST.STATE.step = 5; // 启动发牌
-
-            // 随机设置其他玩家下倍数 TODO : 连接后台数据需删除
-            ST.STATE.player1.xz_times = Utils.FN.Random(1, 15);
-            ST.STATE.player2.xz_times = Utils.FN.Random(1, 15);
-            ST.STATE.player3.xz_times = Utils.FN.Random(1, 15);
-            // 触发点击音效
-            Utils.FN.playmusic(
-              _that.Base.Music.game_music.dom,
-              "../../../../assets/media/qzniu/fapai.mp3"
-            );
           }
           break;
         case 4:
+          break;
+        case 5:
           break;
         case 6:
           ST.PKP.obj[ST.PKP.player0[0]].anistate == 0 &&
@@ -801,12 +810,13 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         case 12:
           for (let i = 0; i < play0_pk_names.length; i++) {
             ST.CVDATA[play0_pk_names[i]].setattr("anistate", 4);
-          };
+          }
 
           // 开牌音效
-          let str0 = `../../../../assets/media/qzniu/${ST.STATE.player0.gender?'aa':''}niuresult${ST.STATE.player0.pkp_type}.mp3`;
-          Utils.FN.playmusic(
-            ST.Base.Music.game_music.players[0],str0);
+          let str0 = `../../../../assets/media/qzniu/${
+            ST.STATE.player0.gender ? "aa" : ""
+          }niuresult${ST.STATE.player0.pkp_type}.mp3`;
+          Utils.FN.play_game_music(ST.Base.Music.game_music.doms, str0);
 
           ST.STATE.player0.animate = 13;
           break;
@@ -959,9 +969,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             );
 
             // 开牌音效
-            let str1 = `../../../../assets/media/qzniu/${ST.STATE.player1.gender?'aa':''}niuresult${ST.STATE.player1.pkp_type}.mp3`;
-            Utils.FN.playmusic(
-              ST.Base.Music.game_music.players[1],str1);
+            let str1 = `../../../../assets/media/qzniu/${
+              ST.STATE.player1.gender ? "aa" : ""
+            }niuresult${ST.STATE.player1.pkp_type}.mp3`;
+            Utils.FN.play_game_music(ST.Base.Music.game_music.doms, str1);
 
             ST.STATE.player1.animate = 13;
           }
@@ -974,7 +985,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               ST.STATE.player2.animate = 11;
             } else {
               ST.STATE.animate = 9;
-            };
+            }
 
             ST.STATE.player1.animate = 14;
           }
@@ -1118,9 +1129,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             );
 
             // 开牌音效
-            let str2 = `../../../../assets/media/qzniu/${ST.STATE.player2.gender?'aa':''}niuresult${ST.STATE.player2.pkp_type}.mp3`;
-            Utils.FN.playmusic(
-              ST.Base.Music.game_music.players[2],str2);
+            let str2 = `../../../../assets/media/qzniu/${
+              ST.STATE.player2.gender ? "aa" : ""
+            }niuresult${ST.STATE.player2.pkp_type}.mp3`;
+            Utils.FN.play_game_music(ST.Base.Music.game_music.doms, str2);
 
             ST.STATE.player2.animate = 13;
           }
@@ -1133,7 +1145,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               ST.STATE.player3.animate = 11;
             } else {
               ST.STATE.animate = 9;
-            };
+            }
 
             ST.STATE.player2.animate = 14;
           }
@@ -1277,9 +1289,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             );
 
             // 开牌音效
-            let str3 = `../../../../assets/media/qzniu/${ST.STATE.player3.gender?'aa':''}niuresult${ST.STATE.player3.pkp_type}.mp3`;
-            Utils.FN.playmusic(
-              ST.Base.Music.game_music.players[3],str3);
+            let str3 = `../../../../assets/media/qzniu/${
+              ST.STATE.player3.gender ? "aa" : ""
+            }niuresult${ST.STATE.player3.pkp_type}.mp3`;
+            Utils.FN.play_game_music(ST.Base.Music.game_music.doms, str3);
 
             ST.STATE.player3.animate = 13;
           }
@@ -1292,7 +1305,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               ST.STATE.player0.animate = 11;
             } else {
               ST.STATE.animate = 9;
-            };
+            }
 
             ST.STATE.player3.animate = 14;
           }
@@ -1316,14 +1329,14 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             xto: -160,
             yto: -80,
             size: 36,
-            color: "#333333"
+            color: "black"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font_dot_loding"], {
             store: { str: "游戏即将开始，请耐心等待" },
             xto: -230,
             yto: 20,
             size: 36,
-            color: "#333333"
+            color: "black"
           });
 
           // TODO: 此处ws请求连接房间数据
@@ -1339,8 +1352,8 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               );
             }
             ST.STATE.animate = 2;
-            Utils.FN.playmusic(
-              _that.Base.Music.game_music.dom,
+            Utils.FN.play_game_music(
+              _that.Base.Music.game_music.doms,
               "../../../../assets/media/qzniu/startgame.mp3"
             );
           }
@@ -1368,32 +1381,31 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           }
           break;
         case 9:
-          switch (ST.STATE.zhuang_win_lose){
+          switch (ST.STATE.zhuang_win_lose) {
             case 0:
               // 玩家赢音效
-              Utils.FN.playmusic(
-                _that.Base.Music.game_music.dom,
+              Utils.FN.play_game_music(
+                _that.Base.Music.game_music.doms,
                 "../../../../assets/media/qzniu/victory.mp3"
               );
               break;
             case 1:
               // 庄家通输音效
-              Utils.FN.playmusic(
-                _that.Base.Music.game_music.dom,
+              Utils.FN.play_game_music(
+                _that.Base.Music.game_music.doms,
                 "../../../../assets/media/qzniu/zhuangresult0.mp3"
               );
               break;
             case 2:
               // 庄家通赢音效
-              Utils.FN.playmusic(
-                _that.Base.Music.game_music.dom,
+              Utils.FN.play_game_music(
+                _that.Base.Music.game_music.doms,
                 "../../../../assets/media/qzniu/zhuangresult2.mp3"
               );
               break;
-
           }
 
-          ST.STATE.animate = 10
+          ST.STATE.animate = 10;
           break;
         case 10:
           let win10 = Utils.FN.Simple(ST, 3000);
@@ -1758,7 +1770,11 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       const name = this.Store.PKP.arr[i];
       this.Store.PKP.obj[name].xto = i * -10 + 260;
     }
-    console.log(this.Store.PKP);
+
+    // 绑定事件
+    _that.ctxele.addEventListener("click", function(e) {
+      _that.canvasclick(e);
+    });
   }
 
   public canvasclick(e) {
@@ -1769,49 +1785,57 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     if (evdata.length) {
       for (let i = evdata.length - 1; i >= 0; i--) {
         let o = evdata[i];
-        if (o.s == "rect") {
-          if (ME.x > o.x && ME.x < o.xl && ME.y > o.y && ME.y < o.yl) {
-            o.ob.eventdata.click &&
-              o.ob.eventdata.click(_that.Store, function() {
-                console.log("点击了矩形 :", o.ob);
+        if (o.ob.name.indexOf("I_shade") === -1) {
+          // 遮罩层
+          if (o.s == "rect") {
+            // 矩形
+            if (ME.x > o.x && ME.x < o.xl && ME.y > o.y && ME.y < o.yl) {
+              o.ob.eventdata.click &&
+                o.ob.eventdata.click(_that.Store, function() {
+                  console.log("点击了矩形 :", o.ob);
 
-                // 触发点击音效
-                if (o.ob.name.indexOf("pkp") !== -1) {
-                  Utils.FN.playmusic(
-                    _that.Base.Music.game_music.dom,
-                    "../../../../assets/media/qzniu/dianjipai.mp3"
-                  );
-                } else {
-                  Utils.FN.playmusic(
-                    _that.Base.Music.game_music.dom,
+                  // 触发点击音效
+                  if (o.ob.name.indexOf("pkp") !== -1) {
+                    // 点击扑克牌音效
+                    Utils.FN.play_game_music(
+                      _that.Base.Music.game_music.doms,
+                      "../../../../assets/media/qzniu/dianjipai.mp3"
+                    );
+                  } else {
+                    Utils.FN.play_game_music(
+                      _that.Base.Music.game_music.doms,
+                      "../../../../assets/media/qzniu/anniu.mp3"
+                    );
+                  }
+
+                  // 如果点击了继续游戏
+                  if (o.ob.name == "I_btn_continue") {
+                    _that.init();
+                  }
+                });
+              return false;
+            }
+          } else {
+            // 圆形
+            let r = (o.xl - o.x) / 2;
+            o.x += r;
+            o.y += r;
+            if (Utils.FN.pointInsideCircle(ME, o, r)) {
+              o.ob.eventdata.click &&
+                o.ob.eventdata.click(_that.Store, function() {
+                  console.log("点击了圆形 :", o.ob);
+
+                  // 触发点击音效
+                  Utils.FN.play_game_music(
+                    _that.Base.Music.game_music.doms,
                     "../../../../assets/media/qzniu/anniu.mp3"
                   );
-                }
-
-                // 如果点击了继续游戏
-                if (o.ob.name == "I_btn_continue") {
-                  _that.init();
-                }
-              });
-            return false;
+                });
+              return false;
+            }
           }
         } else {
-          let r = (o.xl - o.x) / 2;
-          o.x += r;
-          o.y += r;
-          if (Utils.FN.pointInsideCircle(ME, o, r)) {
-            o.ob.eventdata.click &&
-              o.ob.eventdata.click(_that.Store, function() {
-                console.log("点击了圆形 :", o.ob);
-
-                // 触发点击音效
-                Utils.FN.playmusic(
-                  _that.Base.Music.game_music.dom,
-                  "../../../../assets/media/qzniu/anniu.mp3"
-                );
-              });
-            return false;
-          }
+          return false;
         }
       }
     }
@@ -1974,13 +1998,12 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     return data;
   }
 
-  // 设置开牌时牌型 （牛几） 图片
+  // 设置玩家头像 图片 TODO： 临时
   public set_faceImg() {
     let data = [];
     for (let i = 0; i < 10; i++) {
       let img = new Image();
-      img.src =
-        "../../../../assets/images/qzniu/room/head_imgs/face_" + i + ".png";
+      img.src = "../../../../assets/images/common/head_imgs/face_" + i + ".png";
       data.push(img);
     }
     return data;

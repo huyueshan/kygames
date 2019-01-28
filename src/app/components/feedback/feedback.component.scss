@@ -1,0 +1,59 @@
+.recordbox {
+  position: relative;
+  width: 4.5208rem;
+  height: 2.8073rem;
+  // margin-top: 0.1rem;
+  background: url("../../../assets/images/user/popup/fk_bg_small.png") no-repeat;
+  background-size: contain;
+
+  .close_icon {
+    position: absolute;
+    right: -0.1rem;
+    top: -0.1rem;
+    width: 0.4896rem;
+    height: 0.4896rem;
+    background: url("../../../assets/images/user/popup/grzx_03.png") no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: 0.604rem;
+
+    .headimg {
+      width: 0.3854rem;
+      height: 0.1979rem;
+      margin-top: 0.07rem;
+      background: url("../../../assets/images/user/popup/fk_01.png") no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 0.23rem 0.226rem;
+    .container {
+      height: 100%;
+      padding: .1563rem .2083rem;
+      overflow: hidden;
+      textarea{
+        width: 100%;
+        height: 1rem;
+        border: 1px solid #999;
+        border-radius: .06rem;
+        padding: .05rem;
+        font-size: .125rem;
+        line-height: 150%;
+        margin-bottom: .2rem;
+      }
+      .btn{
+        display: inline-block;
+        width: .7813rem;
+        height: .3333rem;
+        background: url("../../../assets/images/common/btn_yes.png") no-repeat;
+        background-size: cover;
+
+      }
+    }
+  }
+}

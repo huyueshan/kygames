@@ -29,11 +29,22 @@ export class HomeService {
     },
     I_top_left_userface: {
       type: "IMG",
-      src: "../../../assets/images/home/dt_00.png",
+      src: `../../../assets/images/common/head_imgs/face_${
+        this.Base.userinfo.face
+      }.png`,
+      // src: "../../../assets/images/home/dt_00.png",
       uiw: 110,
       uih: 110,
       xtl: 20,
-      ytt: 10
+      ytt: 10,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.Base.Popup_Page = 7;
+          console.log("点击了用户中心");
+          callback && typeof callback == "function" && callback();
+        }
+      }
     },
     I_top_left_linbg: {
       type: "IMG",
@@ -43,36 +54,60 @@ export class HomeService {
       xtl: 150,
       ytt: 70
     },
-    I_top_left_rest: {
+    I_top_rest: {
       type: "IMG",
-      src: "../../../assets/images/home/dt_04.png",
-      uiw: 48,
-      uih: 48,
+      src: "../../../assets/images/qzniu/qznn_04.png",
+      uiw: 50,
+      uih: 50,
       xtl: 410,
       ytt: 68,
       shape: "circle",
-      aniconfig: function(o, fps) {
-        switch (o.anistate) {
-          case 0:
-            break;
-
-          case 1:
-            o.rotate += (72 * fps) / 100;
-            if (o.rotate >= 360) {
-              o.rotate = 0;
-              o.anistate = 0;
-            }
-        }
-      },
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
-          serve.CVDATA.I_top_left_rest.anistate = 1;
-          console.log("点击了刷新余额");
+          console.log("点击了充值");
           callback && typeof callback == "function" && callback();
         }
       }
     },
+    I_top_rest_add: {
+      type: "IMG",
+      src: "../../../assets/images/qzniu/qznn_05.png",
+      uiw: 28,
+      uih: 28,
+      xtl: 421,
+      ytt: 78,
+    },
+    // I_top_left_rest: {
+    //   type: "IMG",
+    //   src: "../../../assets/images/home/dt_04.png",
+    //   uiw: 48,
+    //   uih: 48,
+    //   xtl: 410,
+    //   ytt: 68,
+    //   shape: "circle",
+    //   aniconfig: function(o, fps) {
+    //     switch (o.anistate) {
+    //       case 0:
+    //         break;
+
+    //       case 1:
+    //         o.rotate += (72 * fps) / 100;
+    //         if (o.rotate >= 360) {
+    //           o.rotate = 0;
+    //           o.anistate = 0;
+    //         }
+    //     }
+    //   },
+    //   event: true,
+    //   eventdata: {
+    //     click: function(serve, callback = null) {
+    //       serve.CVDATA.I_top_left_rest.anistate = 1;
+    //       console.log("点击了刷新余额");
+    //       callback && typeof callback == "function" && callback();
+    //     }
+    //   }
+    // },
     I_top_right_out: {
       type: "IMG",
       src: "../../../assets/images/home/dt_08.png",
@@ -194,6 +229,7 @@ export class HomeService {
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
+          serve.Base.Popup_Page = 4;
           console.log("点击了签到");
           callback && typeof callback == "function" && callback();
         }
@@ -239,6 +275,7 @@ export class HomeService {
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
+          serve.Base.Popup_Page = 6;
           console.log("点击了反馈");
           callback && typeof callback == "function" && callback();
         }
@@ -260,7 +297,7 @@ export class HomeService {
       uih: 713,
       xto: -840,
       yto: -338,
-      padding:18,
+      padding: 18,
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
@@ -593,6 +630,6 @@ export class HomeService {
     F_font_wt: {
       type: "FONT",
       wt: "bold"
-    },
+    }
   };
 }

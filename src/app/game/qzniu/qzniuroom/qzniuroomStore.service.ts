@@ -167,6 +167,24 @@ export class QzniuroomStoreService {
       xtl: 747,
       ytt: 40
     },
+    I_top_record: {
+      type: "IMG",
+      src: "../../../assets/images/qzniu/qznn_12.png",
+      uiw: 68,
+      uih: 70,
+      xtr: 390,
+      ytt: 16,
+      padding: 4,
+      shape: "circle",
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.Base.Popup_Page = 5;
+          console.log("点击了记录");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
     I_top_rule: {
       type: "IMG",
       src: "../../../../assets/images/qzniu/qznn_07.png",
@@ -447,7 +465,7 @@ export class QzniuroomStoreService {
     },
     I_btn_yes: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/btn_yes.png",
+      src: "../../../../assets/images/common/btn_yes.png",
       uiw: 150,
       uih: 64,
       xto: -175,
@@ -727,7 +745,7 @@ export class QzniuroomStoreService {
     },
     I_py0_face: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/head_imgs/face_0.png",
+      src: "../../../../assets/images/common/head_imgs/face_0.png",
       uiw: 116,
       uih: 116,
       xto: -722,
@@ -738,7 +756,7 @@ export class QzniuroomStoreService {
       src: "../../../../assets/images/qzniu/room/much_1.png",
       uiw: 130,
       uih: 64,
-      xto: -320,
+      xto: -150,
       yto: 180,
       event: true,
       eventdata: {
@@ -754,7 +772,7 @@ export class QzniuroomStoreService {
       src: "../../../../assets/images/qzniu/room/much_2.png",
       uiw: 130,
       uih: 64,
-      xto: -150,
+      xto: 20,
       yto: 180,
       event: true,
       eventdata: {
@@ -770,7 +788,7 @@ export class QzniuroomStoreService {
       src: "../../../../assets/images/qzniu/room/much_3.png",
       uiw: 130,
       uih: 64,
-      xto: 20,
+      xto: 190,
       yto: 180,
       event: true,
       eventdata: {
@@ -786,7 +804,7 @@ export class QzniuroomStoreService {
       src: "../../../../assets/images/qzniu/room/much_0.png",
       uiw: 130,
       uih: 64,
-      xto: 190,
+      xto: -320,
       yto: 180,
       event: true,
       eventdata: {
@@ -898,9 +916,10 @@ export class QzniuroomStoreService {
         click: function(serve, callback = null) {
           console.log("点击了没牛");
           // 音效
-          Utils.FN.playmusic(
-            serve.Base.Music.game_music.players[0],
+          Utils.FN.play_game_music(
+            serve.Base.Music.game_music.doms,
             "../../../../assets/media/qzniu/carderror.mp3");
+
           serve.CVDATA.I_py0_err.show = true;
           serve.CVDATA.A_py0_sweat.show = true;
 
@@ -920,9 +939,10 @@ export class QzniuroomStoreService {
         click: function(serve, callback = null) {
           console.log("点击了有牛");
           // 音效
-          Utils.FN.playmusic(
-            serve.Base.Music.game_music.players[0],
+          Utils.FN.play_game_music(
+            serve.Base.Music.game_music.doms,
             "../../../../assets/media/qzniu/Great.mp3");
+            
           serve.STATE.player0.animate = 10;
           callback && typeof callback == "function" && callback();
         }
@@ -1289,7 +1309,7 @@ export class QzniuroomStoreService {
     },
     I_py1_face: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/head_imgs/face_0.png",
+      src: "../../../../assets/images/common/head_imgs/face_0.png",
       uiw: 116,
       uih: 116,
       xto: 677,
@@ -1466,7 +1486,7 @@ export class QzniuroomStoreService {
     },
     I_py2_face: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/head_imgs/face_0.png",
+      src: "../../../../assets/images/common/head_imgs/face_0.png",
       uiw: 116,
       uih: 116,
       xto: -132,
@@ -1643,7 +1663,7 @@ export class QzniuroomStoreService {
     },
     I_py3_face: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/head_imgs/face_0.png",
+      src: "../../../../assets/images/common/head_imgs/face_0.png",
       uiw: 116,
       uih: 116,
       xto: -793,

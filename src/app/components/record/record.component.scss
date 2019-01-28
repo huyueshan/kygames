@@ -1,0 +1,78 @@
+.recordbox {
+  position: relative;
+  width: 6.8646rem;
+  height: 4.5208rem;
+  margin-top: 0.1rem;
+  background: url("../../../assets/images/user/popup/qd_03.png") no-repeat;
+  background-size: contain;
+
+  .close_icon {
+    position: absolute;
+    right: -0.1rem;
+    top: -0.1rem;
+    width: 0.4896rem;
+    height: 0.4896rem;
+    background: url("../../../assets/images/user/popup/grzx_03.png") no-repeat;
+    background-size: contain;
+  }
+
+  header {
+    height: 0.581rem;
+
+    .headimg {
+      width: 0.3854rem;
+      height: 0.1979rem;
+      margin-top: 0.07rem;
+      background: url("../../../assets/images/user/popup/jl_01.png") no-repeat;
+      background-size: contain;
+    }
+  }
+
+  .content {
+    flex: 1;
+    overflow: hidden;
+    padding: 0 0.23rem 0.246rem 0.22rem;
+
+    .container {
+      height: 100%;
+      background-color: #FEFBEA;
+      border-radius: 0.06rem;
+      overflow: hidden;
+      .tablebox{
+        flex: 1;
+        overflow-y: auto;
+      }
+      table{
+        width: 100%;
+        border-collapse: collapse;
+        tr:nth-child(2n){
+          background-color: #F3EFD7;
+        }
+        th{
+          height: .4167rem;
+          background-color: #FEF7DC;
+          font-size: .125rem;
+          color: black;
+          border-right: 1px solid #D9C583;
+          &:last-child{
+            border: none;
+            padding-right: .1rem;
+          }
+        }
+        td{
+          height: .2604rem;
+          font-size: .125rem;
+          color: #542201;
+          text-align: center;
+        }
+      }
+      footer{
+        font-style:italic;
+        font-size: .1563rem;
+        color: #542201;
+        margin-bottom: .1rem;
+      }
+    }
+
+  }
+}
