@@ -11,6 +11,7 @@ export class AppComponent implements OnInit, AfterContentInit {
   constructor(public Base: BaseService, public el: ElementRef) {}
 
   ngOnInit() {
+    console.log( window.navigator );
   }
   ngAfterContentInit(){
   }

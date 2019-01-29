@@ -1770,11 +1770,6 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       const name = this.Store.PKP.arr[i];
       this.Store.PKP.obj[name].xto = i * -10 + 260;
     }
-
-    // 绑定事件
-    _that.ctxele.addEventListener("click", function(e) {
-      _that.canvasclick(e);
-    });
   }
 
   public canvasclick(e) {

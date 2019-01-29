@@ -293,7 +293,7 @@ export class HomeComponent implements OnInit {
 
   public canvasclick(e) {
     // 设置背景音乐 移动端
-    Utils.FN.mobile_bg_music(this.Base.Music.bg_music.dom, "../../assets/media/home.mp3");
+    // Utils.FN.mobile_bg_music(this.Base.Music.bg_music.dom, "../../assets/media/home.mp3");
 
     let _that = this;
 

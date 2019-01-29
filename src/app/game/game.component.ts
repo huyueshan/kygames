@@ -1,7 +1,6 @@
 import { Component, OnInit, HostListener, ElementRef } from "@angular/core";
 
 import { BaseService } from "../services/base.service";
-// import { Utils } from '../factory/utils';
 
 @Component({
   selector: "app-game",
@@ -11,6 +10,10 @@ import { BaseService } from "../services/base.service";
 export class GameComponent implements OnInit {
   @HostListener("window:resize", ["$event"]) onreset(e) {
     this.Base.initWidow();
+  }
+  //禁用鼠标右键
+  @HostListener("document:contextmenu") oncontextmenu() {
+    return false;
   }
 
   constructor(public Base: BaseService, public el: ElementRef) {}
@@ -22,6 +25,9 @@ export class GameComponent implements OnInit {
     let MU = this.Base.Music;
     MU.bg_music.dom = this.creat_bg_music();
     MU.game_music.doms = this.creat_game_musics(8);
+
+    //禁用鼠标右键
+    //  document.oncontextmenu = function(){return false;}
   }
   ngAfterViewInit() {}
 
@@ -30,10 +36,22 @@ export class GameComponent implements OnInit {
     audio.loop = true;
     audio.autoplay = true;
     audio.volume = this.Base.Music.bg_music.value;
+    audio.src = "../../assets/media/home.mp3";
+    //PC端自动播放
 
     // 兼容移动端自动播放
     let musicHandler = function() {
-      audio.play();
+      if (audio.paused) {
+        const promise = new Promise((resolve, reject) => {
+          audio.load();
+          setTimeout(() => {
+            resolve();
+          }, 500);
+        });
+        promise.then(() => {
+          audio.play();
+        });
+      }
       document.body.removeEventListener("touchstart", musicHandler);
     };
     document.body.addEventListener("touchstart", musicHandler);
@@ -46,10 +64,19 @@ export class GameComponent implements OnInit {
     for (let i = 0; i < len; i++) {
       let audio = new Audio();
       audio.volume = this.Base.Music.game_music.value;
+      audio.src = "../../assets/media/qzniu/000.mp3";
 
       // 兼容移动端自动播放
       let musicHandler = function() {
-        audio.play();
+        const promise = new Promise((resolve, reject) => {
+          audio.load();
+          setTimeout(() => {
+            resolve();
+          }, 100);
+        });
+        promise.then(() => {
+          audio.play();
+        });
         document.body.removeEventListener("touchstart", musicHandler);
       };
       document.body.addEventListener("touchstart", musicHandler);

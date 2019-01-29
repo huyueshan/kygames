@@ -393,6 +393,7 @@ const FN = {
     return newarr;
   },
 
+
   // 播放背景音乐
   play_bg_music(audio, src) {
     const promise = new Promise((resolve, reject) => {
