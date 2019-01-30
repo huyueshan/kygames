@@ -62,7 +62,17 @@ export class QzniuComponent implements OnInit {
     const bg_1 = new Image();
     bg_1.src = "../../../assets/images/qzniu/lobby/qznn_00.jpg";
     const bg_2 = new Image();
-    bg_2.src = "../../../assets/images/qzniu/qznn_01.png";
+    bg_2.src = "../../../assets/images/common/baseicon_01.png";
+
+    // 延迟文字变化颜色
+    const colors = [
+      "#85C730",
+      "#85C730",
+      "#EFCD62",
+      "#EFCD62",
+      "#FF3F3F",
+      "#FF3F3F"
+    ];
 
     // 滚动信息两边遮罩图片
     let imadata_left = null;
@@ -110,7 +120,7 @@ export class QzniuComponent implements OnInit {
             size: 18,
             xtr: 120,
             ytt: 62,
-            color: "#85C730"
+            color: colors[delay_index]
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
             str: _that.Base.userinfo.balance,
@@ -357,17 +367,17 @@ export class QzniuComponent implements OnInit {
       }
 
       // 绘制公告条
-      if (ST.CW / 2 - 540 * ST.CS > 0) {
+      if (ST.CW / 2 - 550 * ST.CS > 0) {
         imadata_left = ctx.getImageData(
           0,
           110 * ST.CS,
-          ST.CW / 2 - 510 * ST.CS,
+          ST.CW / 2 - 500 * ST.CS,
           76 * ST.CS
         );
         imadata_right = ctx.getImageData(
-          ST.CW / 2 + 540 * ST.CS,
+          ST.CW / 2 + 550 * ST.CS,
           110 * ST.CS,
-          ST.CW / 2 - 540 * ST.CS + 10,
+          ST.CW / 2 - 550 * ST.CS + 10,
           76 * ST.CS
         );
       }
@@ -376,14 +386,14 @@ export class QzniuComponent implements OnInit {
         str:
           "拉什福德后我去额呼入王企鹅号日王企鹅号人拉什福德后我去额呼入王企鹅号日王企鹅号人drfthgrtge rterger拉什福德后我去额呼入王企鹅号日王企鹅号人",
         size: 24,
-        xto: 540,
+        xto: 550,
         ytt: 132,
         color: "#FFFFFF"
       });
 
-      if (ST.CW / 2 - 540 * ST.CS > 0) {
+      if (ST.CW / 2 - 550 * ST.CS > 0) {
         ctx.putImageData(imadata_left, 0, 110 * ST.CS);
-        ctx.putImageData(imadata_right, ST.CW / 2 + 540 * ST.CS, 110 * ST.CS);
+        ctx.putImageData(imadata_right, ST.CW / 2 + 550 * ST.CS, 110 * ST.CS);
       }
       // 公告条绘制结束
 

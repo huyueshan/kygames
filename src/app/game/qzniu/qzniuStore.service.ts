@@ -21,7 +21,7 @@ export class QzniuStoreService {
     // img data  属性名以 'I_' 开头
     I_top_left: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_02.png",
+      src: "../../../assets/images/common/baseicon_02.png",
       uiw: 267,
       uih: 140,
       xtl: 0,
@@ -29,7 +29,7 @@ export class QzniuStoreService {
     },
     I_top_back: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_06.png",
+      src: "../../../assets/images/common/baseicon_06.png",
       uiw: 68,
       uih: 70,
       xtl: 50,
@@ -55,7 +55,7 @@ export class QzniuStoreService {
 
     I_top_linebg: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_11.png",
+      src: "../../../assets/images/common/baseicon_11.png",
       uiw: 303,
       uih: 48,
       xtl: 480,
@@ -63,7 +63,7 @@ export class QzniuStoreService {
     },
     I_top_rest: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_04.png",
+      src: "../../../assets/images/common/baseicon_04.png",
       uiw: 50,
       uih: 50,
       xtl: 736,
@@ -79,7 +79,7 @@ export class QzniuStoreService {
     },
     I_top_rest_add: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_05.png",
+      src: "../../../assets/images/common/baseicon_05.png",
       uiw: 28,
       uih: 28,
       xtl: 747,
@@ -87,7 +87,7 @@ export class QzniuStoreService {
     },
     I_top_record: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_12.png",
+      src: "../../../assets/images/common/baseicon_12.png",
       uiw: 68,
       uih: 70,
       xtr: 390,
@@ -105,7 +105,7 @@ export class QzniuStoreService {
     },
     I_top_rule: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_07.png",
+      src: "../../../assets/images/common/baseicon_07.png",
       uiw: 68,
       uih: 70,
       xtr: 296,
@@ -123,7 +123,7 @@ export class QzniuStoreService {
     },
     I_top_set: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_08.png",
+      src: "../../../assets/images/common/baseicon_08.png",
       uiw: 68,
       uih: 70,
       xtr: 202,
@@ -141,18 +141,18 @@ export class QzniuStoreService {
     },
     I_tip_bg: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/lobby/tip_bg.png",
+      src: "../../../assets/images/common/tip_bg.png",
       uiw: 1160,
       uih: 80,
-      xto: -590,
+      xto: -580,
       ytt: 108
     },
     I_tip_bell: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/LB.png",
+      src: "../../../assets/images/common/LB.png",
       uiw: 50,
       uih: 42,
-      xto: -570,
+      xto: -560,
       ytt: 126
     },
     I_icon_man_sign: {

@@ -21,7 +21,7 @@ const routes = [
         loadChildren: "../game/home/home.module#HomeModule"
       },
 
-      // 抢庄牛牛首页
+      // 抢庄牛牛大厅
       {
         path: "qzniu",
         loadChildren: "../game/qzniu/qzniu.module#QzniuModule"
@@ -31,6 +31,18 @@ const routes = [
       {
         path: "qzniuroom",
         loadChildren: "../game/qzniu/qzniuroom/qzniuroom.module#QzniuroomModule"
+      },
+
+      // 炸金花大厅
+      {
+        path: "zjhua",
+        loadChildren: "../game/zjhua/zjhua.module#ZjhuaModule"
+      },
+
+      // 三公大厅
+      {
+        path: "sang",
+        loadChildren: "../game/sang/sang.module#SangModule"
       },
 
     ],

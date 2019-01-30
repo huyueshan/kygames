@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "index",
-    loadChildren: "./game/kygame/kygame.module#KygameModule"
-  },
-  {
     path: "login",
     loadChildren: "./user/login/login.module#LoginModule"
   },

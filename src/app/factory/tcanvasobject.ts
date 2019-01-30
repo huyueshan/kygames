@@ -264,7 +264,7 @@ export class CVANIMAT extends CVBASIC {
   length: number; // 动画图片帧数
   step: number; // 动画帧间隔时间 毫秒
   regain: number; // 循环动画帧起始图片下标 默认0
-  computeindex: number; // 通过绘制刷新帧率计算当前下标计算值
+  computeindex: number; // 通过绘制刷新帧率计算当前下标计算值 可以设置此值决定动画起始帧图片
   doauto?: boolean; // 动画自动循环
   animationce?: boolean; // 执行一轮动画
 

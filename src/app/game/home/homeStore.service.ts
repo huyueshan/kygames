@@ -56,7 +56,7 @@ export class HomeService {
     },
     I_top_rest: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_04.png",
+      src: "../../../assets/images/common/baseicon_04.png",
       uiw: 50,
       uih: 50,
       xtl: 410,
@@ -72,7 +72,7 @@ export class HomeService {
     },
     I_top_rest_add: {
       type: "IMG",
-      src: "../../../assets/images/qzniu/qznn_05.png",
+      src: "../../../assets/images/common/baseicon_05.png",
       uiw: 28,
       uih: 28,
       xtl: 421,
@@ -190,7 +190,6 @@ export class HomeService {
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
-          serve.router.navigate(["index"]);
           console.log("点击了商城");
           callback && typeof callback == "function" && callback();
         }
@@ -333,6 +332,7 @@ export class HomeService {
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
+          serve.router.navigate(["game/zjhua"]);
           console.log("点击了扎金花");
           callback && typeof callback == "function" && callback();
         }
@@ -405,6 +405,7 @@ export class HomeService {
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
+          serve.router.navigate(["game/sang"]);
           console.log("点击了三公");
           callback && typeof callback == "function" && callback();
         }

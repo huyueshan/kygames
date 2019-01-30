@@ -264,7 +264,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     const bg_1 = new Image();
     bg_1.src = "../../../../assets/images/qzniu/room/bg.png";
     const bg_2 = new Image();
-    bg_2.src = "../../../../assets/images/qzniu/qznn_01.png";
+    bg_2.src = "../../../../assets/images/common/baseicon_01.png";
     const shade = new Image(); // 遮罩层
     shade.src = "../../../../assets/images/common/opacity_30.png";
 
@@ -281,7 +281,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       ST.EVENT = []; // 事件绑定坐标数据
       ST.DELAY = Math.floor(Math.random() * (600 - 0)); // 模拟网络延迟时间
       let delay_index = Math.floor(ST.DELAY / 100);
-      ST.CVDATA.A_top_delay.currindex = delay_index; // 延迟图标切换
+      ST.CVDATA["A_top_delay"].currindex = delay_index; // 延迟图标切换
 
       // 清理画布
       ctx.beginPath();
