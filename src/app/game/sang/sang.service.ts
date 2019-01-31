@@ -236,6 +236,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room0_glint: {
       type: "ANIMATED",
@@ -304,6 +306,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room1_glint: {
       type: "ANIMATED",
@@ -373,6 +377,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room2_glint: {
       type: "ANIMATED",
@@ -441,6 +447,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room3_glint: {
       type: "ANIMATED",
@@ -510,6 +518,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room4_glint: {
       type: "ANIMATED",
@@ -578,6 +588,8 @@ export class SangService {
       step: 200,
       currindex: 0,
       doauto: true,
+      danimate:true,
+      danimateconfig:[100,5000]
     },
     A_room5_glint: {
       type: "ANIMATED",

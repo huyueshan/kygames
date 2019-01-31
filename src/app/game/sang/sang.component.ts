@@ -173,14 +173,14 @@ export class SangComponent implements OnInit {
             "A_room1_glint"
           ]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "底注：1",
+            str: "底注：2",
             xto: 474,
             yto: -104,
             size: 20,
             color: "#FFFFFF"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "准入：100",
+            str: "准入：200",
             xto: 594,
             yto: -104,
             size: 20,
@@ -196,14 +196,14 @@ export class SangComponent implements OnInit {
             "A_room2_glint"
           ]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "底注：1",
+            str: "底注：3",
             xto: 0,
             yto: 152,
             size: 20,
             color: "#FFFFFF"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "准入：100",
+            str: "准入：300",
             xto: 120,
             yto: 152,
             size: 20,
@@ -219,14 +219,14 @@ export class SangComponent implements OnInit {
             "A_room3_glint"
           ]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "底注：1",
+            str: "底注：4",
             xto: 474,
             yto: 152,
             size: 20,
             color: "#FFFFFF"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "准入：100",
+            str: "准入：400",
             xto: 594,
             yto: 152,
             size: 20,
@@ -242,14 +242,14 @@ export class SangComponent implements OnInit {
             "A_room4_glint"
           ]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "底注：1",
+            str: "底注：5",
             xto: 0,
             yto: 408,
             size: 20,
             color: "#FFFFFF"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "准入：100",
+            str: "准入：1000",
             xto: 120,
             yto: 408,
             size: 20,
@@ -265,14 +265,14 @@ export class SangComponent implements OnInit {
             "A_room5_glint"
           ]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "底注：1",
+            str: "底注：16",
             xto: 474,
             yto: 408,
             size: 20,
             color: "#FFFFFF"
           });
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
-            str: "准入：100",
+            str: "准入：10000",
             xto: 594,
             yto: 408,
             size: 20,

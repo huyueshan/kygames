@@ -260,7 +260,7 @@ export class CVANIMAT extends CVBASIC {
   src?: String; // 当前动画组图片地址 图片名不包含图片下标数和后缀名
   imglist: object = [];
   currindex: number; // 当前动画帧下标
-  imgsuf: string; // 图片后缀名 不需要带点 默认png
+  imgsuf: string; // 图片后缀名 默认'.png'
   length: number; // 动画图片帧数
   step: number; // 动画帧间隔时间 毫秒
   regain: number; // 循环动画帧起始图片下标 默认0
