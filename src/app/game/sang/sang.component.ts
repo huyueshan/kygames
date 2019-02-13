@@ -7,7 +7,7 @@ import { WebsocketService } from "../../services/websocket.service";
 import { HttpclientService } from "../../services/httpclient.service";
 import { Utils } from "../../factory/utils.js";
 
-import { SangService } from "./sang.service";
+import { SangService } from "./sangStore.service";
 
 @Component({
   selector: "app-sang",

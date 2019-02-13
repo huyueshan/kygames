@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
-import { QzniuroomComponent } from './qzniuroom.component';
-import { QzniuroomStoreService } from './qzniuroomStore.service';
+import { SangroomComponent } from './sangroom.component';
+import { SangroomStoreService } from './sangroom-store.service';
+
 
 const routes = [
   {
@@ -12,15 +13,16 @@ const routes = [
   },
   {
     path: ":id",
-    component: QzniuroomComponent
+    component: SangroomComponent
   },
 ];
+
 @NgModule({
   imports: [
     RouterModule.forChild(routes),
     CommonModule
   ],
-  declarations: [QzniuroomComponent],
-  providers: [QzniuroomStoreService]
+  declarations: [SangroomComponent],
+  providers: [SangroomStoreService]
 })
-export class QzniuroomModule { }
+export class SangroomModule { }

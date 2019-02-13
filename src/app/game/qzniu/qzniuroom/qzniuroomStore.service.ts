@@ -345,6 +345,7 @@ export class QzniuroomStoreService {
       aniconfig: function(o, fps) {
         switch (o.anistate) {
           case 0:
+          
             break;
           case 1:
             let win1 = o.transition([["scaling", 0.2, 1, 400]], fps);

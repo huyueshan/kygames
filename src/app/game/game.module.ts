@@ -45,6 +45,12 @@ const routes = [
         loadChildren: "../game/sang/sang.module#SangModule"
       },
 
+      // 三公房间
+      {
+        path: "sangroom",
+        loadChildren: "../game/sang/sangroom/sangroom.module#SangroomModule"
+      },
+
     ],
   },
 

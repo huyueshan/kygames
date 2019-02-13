@@ -143,7 +143,7 @@ export class CVBASIC {
   delayopen(fps) {
     if (this.dopen && this.delayconfig !== null) {
       let open = this.delayconfig.open;
-      if (open instanceof Array) {
+      if (Array.isArray(open)) {
         open = Math.floor(Math.random() * (open[1] - open[0] + 1) + open[0]);
       } else {
         open = Number(open);
@@ -159,7 +159,7 @@ export class CVBASIC {
   delayclose(fps) {
     if (this.dclose && this.delayconfig !== null) {
       let close = this.delayconfig.close;
-      if (close instanceof Array) {
+      if (Array.isArray(close)) {
         close = Math.floor(
           Math.random() * (close[1] - close[0] + 1) + close[0]
         );
@@ -331,11 +331,12 @@ export class CVANIMAT extends CVBASIC {
   // 延迟动画
   delayani(fps) {
     if (this.danimate && this.danimateconfig !== null) {
-      let da = this.danimateconfig;
-      if (da instanceof Array) {
+      let da;
+      if (Array.isArray(this.danimateconfig)) {
+        da= [...this.danimateconfig];
         da = Math.floor(Math.random() * (da[1] - da[0] + 1) + da[0]);
       } else {
-        da = Number(da);
+        da = Number(this.danimateconfig);
       }
       this.danimatestate += fps / da;
       if (this.danimatestate >= 1) {

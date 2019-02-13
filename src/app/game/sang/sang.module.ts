@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { SangComponent } from './sang.component';
-import { SangService } from './sang.service';
+import { SangService } from './sangStore.service';
 const routes = [
   {
     path: "",

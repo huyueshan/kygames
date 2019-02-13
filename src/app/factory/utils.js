@@ -63,7 +63,7 @@ const FN = {
 
   // 设置绘画对象是否需要绘制
   SetDisplay(data, isShow = true) {
-    if (data instanceof Array) {
+    if (Array.isArray(data)) {
       for (let i = 0; i < data.length; i++) {
         data[i].show = isShow;
       }
