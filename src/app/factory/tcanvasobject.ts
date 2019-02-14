@@ -270,6 +270,7 @@ export class CVANIMAT extends CVBASIC {
 
   danimate?: boolean; // 动画延迟
   danimatestate?: number; // 当前延迟状态 用于控制延迟
+  delaytime?: number; // 动画延迟时间
   danimateconfig?: any; // 延迟配置  number | number[] 如果值是一个数组的话取数组数组之间的一个随机数，比如[1,100] 取1到100之间的随机数 ms
   constructor(data: any) {
     super(data);
@@ -288,6 +289,7 @@ export class CVANIMAT extends CVBASIC {
     this.computeindex = data.computeindex ? data.computeindex : 0;
     this.danimate = data.danimate ? data.danimate : false;
     this.danimatestate = 0;
+    this.delaytime = 0,
     this.danimateconfig = data.danimateconfig ? data.danimateconfig : null;
     this.setanimt();
   }
@@ -307,6 +309,7 @@ export class CVANIMAT extends CVBASIC {
 
     // 执行图片帧播放动画
     if (this.doauto) {
+      let delaytime;
       if (this.currindex == 0 && this.danimate) {
         this.delayani(fps);
       } else {
@@ -316,12 +319,19 @@ export class CVANIMAT extends CVBASIC {
         } else {
           this.computeindex = this.computeindex - this.length;
           this.currindex = this.regain;
+          // 延迟动画时间设置
+          if (this.danimateconfig !== null) {
+            this.danimate = true;
+            if (Array.isArray(this.danimateconfig)) {
+              let da= [...this.danimateconfig];
+              this.delaytime = Math.floor(Math.random() * (da[1] - da[0] + 1) + da[0]);
+            } else {
+              this.delaytime = Number(this.danimateconfig);
+            }
+          }
           if (this.animationce) {
             this.currindex = 0;
             this.show = false; // 如果设置只执行一次的话执行完毕就不显示，再次调用值设置为true;
-          }
-          if (this.danimateconfig !== null) {
-            this.danimate = true;
           }
         }
       }
@@ -331,14 +341,7 @@ export class CVANIMAT extends CVBASIC {
   // 延迟动画
   delayani(fps) {
     if (this.danimate && this.danimateconfig !== null) {
-      let da;
-      if (Array.isArray(this.danimateconfig)) {
-        da= [...this.danimateconfig];
-        da = Math.floor(Math.random() * (da[1] - da[0] + 1) + da[0]);
-      } else {
-        da = Number(this.danimateconfig);
-      }
-      this.danimatestate += fps / da;
+      this.danimatestate += fps / this.delaytime;
       if (this.danimatestate >= 1) {
         this.danimate = false;
         this.danimatestate = 0;

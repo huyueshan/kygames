@@ -1913,7 +1913,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               ],
               fps
             );
-            win2 && (o.anistate = 0) && console.log("object");
+            win2 && (o.anistate = 0)
             break;
 
           default:

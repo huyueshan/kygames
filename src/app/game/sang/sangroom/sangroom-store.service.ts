@@ -29,16 +29,12 @@ export class SangroomStoreService {
         "I_py0_pkp_0",
         "I_py0_pkp_1",
         "I_py0_pkp_2",
-        "I_py0_pkp_3",
-        "I_py0_pkp_4"
       ],
-      origin: { xto: -50, yto: 350 }, // 收牌坐标位置
+      origin: { xto: 150, yto: 330 }, // 收牌坐标位置
       site: [
-        { xto: -250, yto: 350 },
-        { xto: -150, yto: 350 },
-        { xto: -50, yto: 350 },
-        { xto: 50, yto: 350 },
-        { xto: 150, yto: 350 }
+        { xto: 30, yto: 330 },
+        { xto: 150, yto: 330 },
+        { xto: 270, yto: 330 },
       ]
     },
     player1: {
@@ -46,16 +42,12 @@ export class SangroomStoreService {
         "I_py1_pkp_0",
         "I_py1_pkp_1",
         "I_py1_pkp_2",
-        "I_py1_pkp_3",
-        "I_py1_pkp_4"
       ],
-      origin: { xto: 526, yto: -60 }, // 收牌坐标位置
+      origin: { xto: 480, yto: 140 }, // 收牌坐标位置
       site: [
-        { xto: 526, yto: -60 },
-        { xto: 506, yto: -60 },
-        { xto: 486, yto: -60 },
-        { xto: 466, yto: -60 },
-        { xto: 446, yto: -60 }
+        { xto: 360, yto: 140 },
+        { xto: 420, yto: 140 },
+        { xto: 480, yto: 140 },
       ]
     },
     player2: {
@@ -63,16 +55,12 @@ export class SangroomStoreService {
         "I_py2_pkp_0",
         "I_py2_pkp_1",
         "I_py2_pkp_2",
-        "I_py2_pkp_3",
-        "I_py2_pkp_4"
       ],
-      origin: { xto: -50, yto: -200 }, // 收牌坐标位置
+      origin: { xto: 480, yto: -160 }, // 收牌坐标位置
       site: [
-        { xto: -90, yto: -200 },
-        { xto: -70, yto: -200 },
-        { xto: -50, yto: -200 },
-        { xto: -30, yto: -200 },
-        { xto: -10, yto: -200 }
+        { xto: 360, yto: -160 },
+        { xto: 420, yto: -160 },
+        { xto: 480, yto: -160 },
       ]
     },
     player3: {
@@ -80,16 +68,12 @@ export class SangroomStoreService {
         "I_py3_pkp_0",
         "I_py3_pkp_1",
         "I_py3_pkp_2",
-        "I_py3_pkp_3",
-        "I_py3_pkp_4"
       ],
-      origin: { xto: -624, yto: -60 }, // 收牌坐标位置
+      origin: { xto: -598, yto: -160 }, // 收牌坐标位置
       site: [
-        { xto: -624, yto: -60 },
-        { xto: -604, yto: -60 },
-        { xto: -584, yto: -60 },
-        { xto: -564, yto: -60 },
-        { xto: -544, yto: -60 }
+        { xto: -478, yto: -160 },
+        { xto: -538, yto: -160 },
+        { xto: -598, yto: -160 },
       ]
     },
     player4: {
@@ -97,16 +81,12 @@ export class SangroomStoreService {
         "I_py4_pkp_0",
         "I_py4_pkp_1",
         "I_py4_pkp_2",
-        "I_py4_pkp_3",
-        "I_py4_pkp_4"
       ],
-      origin: { xto: -624, yto: -60 }, // 收牌坐标位置
+      origin: { xto: -598, yto: 140 }, // 收牌坐标位置
       site: [
-        { xto: -624, yto: -60 },
-        { xto: -604, yto: -60 },
-        { xto: -584, yto: -60 },
-        { xto: -564, yto: -60 },
-        { xto: -544, yto: -60 }
+        { xto: -478, yto: 140 },
+        { xto: -538, yto: 140 },
+        { xto: -598, yto: 140 },
       ]
     }
   };
@@ -597,12 +577,12 @@ export class SangroomStoreService {
     },
     A_py0_Banker: {
       type: "ANIMATED",
-      src: "../../../../assets/images/sang/room/banker_line/banker_line_",
+      src: "../../../../assets/images/sang/room/banker_line/banker0_line_",
       uiw: 276,
       uih: 334,
       xto: -758,
       yto: 322,
-      length: 6,
+      length: 3,
       step: 200,
       doauto: true
     }
@@ -660,7 +640,7 @@ export class SangroomStoreService {
           case 0:
             break;
           case 1:
-            let win1 = o.transition([["xto", 50, 150, 200]], fps);
+            let win1 = o.transition([["xto", 30, 150, 200]], fps);
             win1 && (o.anistate = 0);
             break;
           case 2:

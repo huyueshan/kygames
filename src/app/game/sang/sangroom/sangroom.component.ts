@@ -97,10 +97,10 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     // 初始当前画布绘制状态
     ST.STATE = {
       step: 0,
-      animate: 1, // step: 5 而且animate: 5 时进入发牌过程
+      animate: 5, // step: 5 而且animate: 5 时进入发牌过程
       player0: {
         status: 1,
-        animate: 0, // 11 进入开牌过程
+        animate: 1, // 11 进入开牌过程
         name: "vitor", // 玩家昵称
         id: "00000", // 玩家ID
         face: 0, // 显示玩家的头像,目前定义0~9  10张用户头像
@@ -116,7 +116,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       player1: {
         status: 1,
-        animate: 0,
+        animate: 1,
         name: "coco",
         id: "00001",
         face: 0,
@@ -132,7 +132,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       player2: {
         status: 1,
-        animate: 0,
+        animate: 1,
         name: "billy",
         id: "00002",
         face: 0,
@@ -148,7 +148,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       player3: {
         status: 1,
-        animate: 0,
+        animate: 1,
         qz_times: -1,
         name: "max",
         id: "00003",
@@ -164,7 +164,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       player4: {
         status: 1,
-        animate: 0,
+        animate: 1,
         qz_times: -1,
         name: "max",
         id: "00003",
@@ -180,7 +180,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       qzhuang: -1, // 当前抢庄玩家  初始-1
       qzhuang_palyers: [], // 当前抢庄倍率最高的玩家集合
-      play_zhuang: -1, // 庄家  初始-1
+      play_zhuang: 4, // 庄家  初始-1
       zhuang_win_lose: 0, // 当前游戏庄家通杀通赢状态:0：默认无状态 1：庄家通输， 2：庄家通赢
       popup: 0
     };
@@ -327,10 +327,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
 
       switch (ST.STATE.step) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, [
-            ..._that.Store.PKP.arr
-            // ..._that.Store.PKP.store
-          ]);
+          Utils.FN.DrawObj(ctx, ST, [..._that.Store.PKP.arr]);
           break;
         case 5:
           _that.set_pkp_animate(); // 设置发牌数据
@@ -643,11 +640,11 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player3.animate) {
         case 0:
-        Utils.FN.DrawObj(ctx, ST, [
-          "I_py3_pkp_0",
-          "I_py3_pkp_1",
-          "I_py3_pkp_2"
-        ]);
+          Utils.FN.DrawObj(ctx, ST, [
+            "I_py3_pkp_0",
+            "I_py3_pkp_1",
+            "I_py3_pkp_2"
+          ]);
           break;
         case 1:
           break;
@@ -718,11 +715,11 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player4.animate) {
         case 0:
-        Utils.FN.DrawObj(ctx, ST, [
-          "I_py4_pkp_0",
-          "I_py4_pkp_1",
-          "I_py4_pkp_2"
-        ]);
+          Utils.FN.DrawObj(ctx, ST, [
+            "I_py4_pkp_0",
+            "I_py4_pkp_1",
+            "I_py4_pkp_2"
+          ]);
           break;
         case 1:
           0;
@@ -735,10 +732,19 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       // 全局动画
       switch (ST.STATE.animate) {
         case 0:
-          ``;
           break;
         case 1:
           Utils.FN.DrawObj(ctx, ST, ["I_py_zhuang"], ST.zhuang_position[4]);
+          break;
+        case 5:
+        let deal_1 = _that.pkp_animate(); // 执行发牌动作
+        if (deal_1) {
+          // for (let i = 0; i < ST.PKP.player0.length; i++) {
+          //   ST.PKP.obj[ST.PKP.player0[i]].anistate = 2;
+          // }
+          // ST.STATE.player0.animate = 6;
+          ST.STATE.animate = 0;
+        }
           break;
         default:
           break;
@@ -1061,6 +1067,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     Utils.FN.ObMaping(this.Store.CVDATA, CreateObj(this.Store.py4_pkp));
 
     ST.PKP = this.create_pkp(15); // 创建扑克牌数据
+    _that.set_pkp_animate();
     // 将扑克牌对象映射到 this.Store.CVDATA ！！！！！！
     Utils.FN.ObMaping(this.Store.CVDATA, this.Store.PKP.obj);
     // 初始扑克牌显示位置
@@ -1186,8 +1193,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           case 1:
             let win1 = o.transition(
               [
-                ["xto", o.store.orxto, o.store.xto, 200],
-                ["yto", o.store.oryto, o.store.yto, 200]
+                ["xto", o.store.orxto, o.store.xto, 500],
+                ["yto", o.store.oryto, o.store.yto, 500]
               ],
               fps
             );
@@ -1196,12 +1203,12 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           case 2:
             let win2 = o.transition(
               [
-                ["xto", o.store.xto, o.origin.xto, 400],
-                ["yto", o.store.yto, o.origin.yto, 400]
+                ["xto", o.store.xto, o.origin.xto, 300],
+                ["yto", o.store.yto, o.origin.yto, 300]
               ],
               fps
             );
-            win2 && (o.anistate = 0) && console.log("object");
+            win2 && (o.anistate = 0)
             break;
 
           default:
@@ -1229,26 +1236,25 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       let n = i + this.Store.STATE.play_zhuang; // 从庄家开始发牌
       let p = pkp.arr[pkp.arr.length - 1 - i];
       let q = Math.floor(i / 5);
-      let name = "player" + (n % 4);
+      let name = "player" + (n % 5);
       pkp.obj[p].store = this.Store.PkpGroup[name].site[q];
       pkp.obj[p].store["orxto"] = pkp.obj[p].xto;
       pkp.obj[p].store["oryto"] = pkp.obj[p].yto;
       pkp[name].push(p);
       pkp.obj[p].origin = this.Store.PkpGroup[name].origin;
     }
-    pkp["store"] = [];
+    console.log(pkp);
   }
 
   // 发牌
   public pkp_animate() {
     let pkp = this.Store.PKP;
-    if (pkp.arr.length <= 52 - 20) {
-      return true;
+    // let a = pkp.arr[pkp.arr.length - 1];
+    // pkp.obj[a].anistate = 1;
+    for (let i = 0; i < pkp.arr.length; i++) {
+      let a = pkp.arr[i];
+      pkp.obj[a].anistate = 1;
     }
-    let a = pkp.arr[pkp.arr.length - 1];
-    pkp.obj[a].anistate = 1;
-    let item = pkp.arr.pop();
-    pkp.store.push(item);
     return false;
   }
 
