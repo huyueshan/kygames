@@ -345,7 +345,7 @@ export class QzniuroomStoreService {
       aniconfig: function(o, fps) {
         switch (o.anistate) {
           case 0:
-          
+
             break;
           case 1:
             let win1 = o.transition([["scaling", 0.2, 1, 400]], fps);
@@ -484,7 +484,7 @@ export class QzniuroomStoreService {
     },
     I_btn_cancel: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/btn_cancel.png",
+      src: "../../../../assets/images/common/btn_cancel.png",
       uiw: 150,
       uih: 64,
       xto: 25,
@@ -670,7 +670,7 @@ export class QzniuroomStoreService {
 
     A_pups_close: {
       type: "ANIMATED",
-      src: "../../../../assets/images/qzniu/room/close/close_anibg_",
+      src: "../../../../assets/images/common/close/close_anibg_",
       uiw: 100,
       uih: 102,
       xto: 360,

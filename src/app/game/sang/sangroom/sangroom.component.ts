@@ -64,8 +64,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     // 扑克牌图片对象创建
     this.pk_names = this.set_pkpName(); // 定义扑克牌名称
     this.Store.PKP_img = this.set_pkpImg(this.pk_names); // 创建所有扑克牌图片
-    this.result_nius = this.set_niuImg(); // 创建所有开牌时几点 图片
-    this.player_faces = this.set_faceImg(); // 创建所有开牌时牛几 图片
+    this.result_nius = this.set_dianImg(); // 创建所有开牌时几点 图片
+    this.player_faces = this.set_faceImg(); // 创建玩家头像 图片
   }
 
   ngAfterViewInit() {
@@ -97,10 +97,10 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     // 初始当前画布绘制状态
     ST.STATE = {
       step: 0,
-      animate: 5, // step: 5 而且animate: 5 时进入发牌过程
+      animate: 1, // step: 5 而且animate: 5 时进入发牌过程
       player0: {
         status: 1,
-        animate: 1, // 11 进入开牌过程
+        animate: 0, // 11 进入开牌过程
         name: "vitor", // 玩家昵称
         id: "00000", // 玩家ID
         face: 0, // 显示玩家的头像,目前定义0~9  10张用户头像
@@ -115,8 +115,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         doubling: 1 // 当前游戏玩家的倍率
       },
       player1: {
-        status: 1,
-        animate: 1,
+        status: 0,
+        animate: 0,
         name: "coco",
         id: "00001",
         face: 0,
@@ -131,8 +131,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         doubling: 1
       },
       player2: {
-        status: 1,
-        animate: 1,
+        status: 0,
+        animate: 0,
         name: "billy",
         id: "00002",
         face: 0,
@@ -147,8 +147,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         doubling: 1
       },
       player3: {
-        status: 1,
-        animate: 1,
+        status: 0,
+        animate: 0,
         qz_times: -1,
         name: "max",
         id: "00003",
@@ -163,8 +163,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         doubling: 1
       },
       player4: {
-        status: 1,
-        animate: 1,
+        status: 0,
+        animate: 0,
         qz_times: -1,
         name: "max",
         id: "00003",
@@ -180,9 +180,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       },
       qzhuang: -1, // 当前抢庄玩家  初始-1
       qzhuang_palyers: [], // 当前抢庄倍率最高的玩家集合
-      play_zhuang: 4, // 庄家  初始-1
+      play_zhuang: -1, // 庄家  初始-1
       zhuang_win_lose: 0, // 当前游戏庄家通杀通赢状态:0：默认无状态 1：庄家通输， 2：庄家通赢
-      popup: 0
+      popup: 0 // 提示框控制
     };
 
     // // 临时扑克牌牌面  TODO ： 连接后台数据后删除
@@ -330,29 +330,26 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           Utils.FN.DrawObj(ctx, ST, [..._that.Store.PKP.arr]);
           break;
         case 5:
-          _that.set_pkp_animate(); // 设置发牌数据
           // 触发发牌音效
           // Utils.FN.play_game_music(
           //   _that.Base.Music.game_music.doms,
           //   "../../../../assets/media/qzniu/fapai.mp3"
           // );
-          // ST.STATE.animate = 5;
+          ST.STATE.animate = 5;
           // ST.STATE.player0.animate = 5;
           // ST.STATE.player1.animate = 5;
           // ST.STATE.player2.animate = 5;
           // ST.STATE.player3.animate = 5;
-          // ST.STATE.step = 6;
-
+          // ST.STATE.player4.animate = 5;
+          ST.STATE.step = 6;
+          console.log(_that.Store.PKP);
           // // 随机设置其他玩家下倍数 TODO : 连接后台数据需删除
           // ST.STATE.player1.xz_times = Utils.FN.Random(1, 15);
           // ST.STATE.player2.xz_times = Utils.FN.Random(1, 15);
           // ST.STATE.player3.xz_times = Utils.FN.Random(1, 15);
           break;
         case 6:
-          // Utils.FN.DrawObj(ctx, ST, [
-          //   ..._that.Store.PKP.arr,
-          //   ..._that.Store.PKP.store
-          // ]);
+          Utils.FN.DrawObj(ctx, ST, [..._that.Store.PKP.arr]);
           break;
       }
 
@@ -361,12 +358,12 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_py0_bg_01",
-            "I_py0_bg_02",
-            "A_py0_bg_03",
-            "I_py0_face"
-          ]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py0_bg_01"]);
+          (ST.STATE.play_zhuang == 0 || ST.STATE.qzhuang == 0) &&
+            Utils.FN.DrawObj(ctx, ST, ["I_py0_bg_02"]);
+          ST.STATE.play_zhuang == 0 &&
+            Utils.FN.DrawObj(ctx, ST, ["A_py0_bg_03"]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py0_face"]);
           Utils.FN.DrawObj(ctx, ST, ["F_font"], {
             str: ST.STATE.player0.name,
             xto: -200,
@@ -381,34 +378,41 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             size: 24,
             color: "#FFD385"
           });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str:
-              ST.STATE.player0.result < 0
-                ? ST.STATE.player0.result + ""
-                : "+" + ST.STATE.player0.result,
-            xto: -240,
-            yto: 270,
-            size: 36,
-            stroke: true,
-            sc: "#9A1322",
-            lw: "1",
-            Gradient: true,
-            Gradient_data:
-              ST.STATE.player0.result < 0
-                ? ["#DCFFE1", "#45F45E"]
-                : ["#FFD9DD", "#FF6474"]
-          });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: "下 14 倍",
-            xto: -200,
-            yto: 416,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str:
+          //     ST.STATE.player0.result < 0
+          //       ? ST.STATE.player0.result + ""
+          //       : "+" + ST.STATE.player0.result,
+          //   xto: -240,
+          //   yto: 270,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#9A1322",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data:
+          //     ST.STATE.player0.result < 0
+          //       ? ["#DCFFE1", "#45F45E"]
+          //       : ["#FFD9DD", "#FF6474"]
+          // });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str: "下 14 倍",
+          //   xto: -200,
+          //   yto: 416,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#804C22",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
+          // });
+          if (ST.STATE.player4.animate >= 13) {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_py0_pkp_0",
+              "I_py0_pkp_1",
+              "I_py0_pkp_2"
+            ]);
+          }
 
           break;
 
@@ -417,10 +421,11 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player0.animate) {
         case 0:
+          break;
+        case 2:
           Utils.FN.DrawObj(ctx, ST, [
-            "I_py0_pkp_0",
-            "I_py0_pkp_1",
-            "I_py0_pkp_2"
+            "I_btn_noz",
+            "I_btn_qz",
           ]);
           break;
 
@@ -433,7 +438,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          Utils.FN.DrawObj(ctx, ST, ["I_py1_bg_01", "I_py1_bg_02"]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py1_bg_01"]);
+          (ST.STATE.play_zhuang == 1 || ST.STATE.qzhuang == 1) &&
+            Utils.FN.DrawObj(ctx, ST, ["I_py1_bg_02"]);
           ST.STATE.play_zhuang == 1 &&
             Utils.FN.DrawObj(ctx, ST, ["A_py_Banker"], {
               xto: 578,
@@ -454,34 +461,41 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             size: 24,
             color: "#FFD385"
           });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str:
-              ST.STATE.player1.result < 0
-                ? ST.STATE.player1.result + ""
-                : "+" + ST.STATE.player1.result,
-            xto: 660,
-            yto: 40,
-            size: 36,
-            stroke: true,
-            sc: "#158138",
-            lw: "1",
-            Gradient: true,
-            Gradient_data:
-              ST.STATE.player1.result < 0
-                ? ["#DCFFE1", "#45F45E"]
-                : ["#FFD9DD", "#FF6474"]
-          });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: "下 14 倍",
-            xto: 440,
-            yto: 90,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str:
+          //     ST.STATE.player1.result < 0
+          //       ? ST.STATE.player1.result + ""
+          //       : "+" + ST.STATE.player1.result,
+          //   xto: 660,
+          //   yto: 40,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#158138",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data:
+          //     ST.STATE.player1.result < 0
+          //       ? ["#DCFFE1", "#45F45E"]
+          //       : ["#FFD9DD", "#FF6474"]
+          // });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str: "下 14 倍",
+          //   xto: 440,
+          //   yto: 90,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#804C22",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
+          // });
+          if (ST.STATE.player4.animate >= 13) {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_py1_pkp_0",
+              "I_py1_pkp_1",
+              "I_py1_pkp_2"
+            ]);
+          }
 
           break;
 
@@ -490,11 +504,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player1.animate) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_py1_pkp_0",
-            "I_py1_pkp_1",
-            "I_py1_pkp_2"
-          ]);
           break;
         case 1:
           break;
@@ -508,7 +517,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          Utils.FN.DrawObj(ctx, ST, ["I_py2_bg_01", "I_py2_bg_02"]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py2_bg_01"]);
+          (ST.STATE.play_zhuang == 2 || ST.STATE.qzhuang == 2) &&
+            Utils.FN.DrawObj(ctx, ST, ["I_py2_bg_02"]);
           ST.STATE.play_zhuang == 2 &&
             Utils.FN.DrawObj(ctx, ST, ["A_py_Banker"], {
               xto: 578,
@@ -529,34 +540,41 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             size: 24,
             color: "#FFD385"
           });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str:
-              ST.STATE.player2.result < 0
-                ? ST.STATE.player2.result + ""
-                : "+" + ST.STATE.player2.result,
-            xto: 660,
-            yto: -260,
-            size: 36,
-            stroke: true,
-            sc: "#158138",
-            lw: "1",
-            Gradient: true,
-            Gradient_data:
-              ST.STATE.player2.result < 0
-                ? ["#DCFFE1", "#45F45E"]
-                : ["#FFD9DD", "#FF6474"]
-          });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: "下 34 倍",
-            xto: 440,
-            yto: -210,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str:
+          //     ST.STATE.player2.result < 0
+          //       ? ST.STATE.player2.result + ""
+          //       : "+" + ST.STATE.player2.result,
+          //   xto: 660,
+          //   yto: -260,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#158138",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data:
+          //     ST.STATE.player2.result < 0
+          //       ? ["#DCFFE1", "#45F45E"]
+          //       : ["#FFD9DD", "#FF6474"]
+          // });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str: "下 34 倍",
+          //   xto: 440,
+          //   yto: -210,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#804C22",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
+          // });
+          if (ST.STATE.player4.animate >= 13) {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_py2_pkp_0",
+              "I_py2_pkp_1",
+              "I_py2_pkp_2"
+            ]);
+          }
 
           break;
 
@@ -565,11 +583,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player2.animate) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_py2_pkp_0",
-            "I_py2_pkp_1",
-            "I_py2_pkp_2"
-          ]);
           break;
         case 1:
           break;
@@ -583,7 +596,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          Utils.FN.DrawObj(ctx, ST, ["I_py3_bg_01", "I_py3_bg_02"]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py3_bg_01"]);
+          (ST.STATE.play_zhuang == 3 || ST.STATE.qzhuang == 4) &&
+            Utils.FN.DrawObj(ctx, ST, ["I_py3_bg_02"]);
           ST.STATE.play_zhuang == 3 &&
             Utils.FN.DrawObj(ctx, ST, ["A_py_Banker"], {
               xto: -852,
@@ -604,34 +619,41 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             size: 24,
             color: "#FFD385"
           });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str:
-              ST.STATE.player3.result < 0
-                ? ST.STATE.player3.result + ""
-                : "+" + ST.STATE.player3.result,
-            xto: -770,
-            yto: -260,
-            size: 36,
-            stroke: true,
-            sc: "#158138",
-            lw: "1",
-            Gradient: true,
-            Gradient_data:
-              ST.STATE.player3.result < 0
-                ? ["#DCFFE1", "#45F45E"]
-                : ["#FFD9DD", "#FF6474"]
-          });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: "下 34 倍",
-            xto: -580,
-            yto: -210,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str:
+          //     ST.STATE.player3.result < 0
+          //       ? ST.STATE.player3.result + ""
+          //       : "+" + ST.STATE.player3.result,
+          //   xto: -770,
+          //   yto: -260,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#158138",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data:
+          //     ST.STATE.player3.result < 0
+          //       ? ["#DCFFE1", "#45F45E"]
+          //       : ["#FFD9DD", "#FF6474"]
+          // });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str: "下 34 倍",
+          //   xto: -580,
+          //   yto: -210,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#804C22",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
+          // });
+          if (ST.STATE.player3.animate >= 13) {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_py3_pkp_0",
+              "I_py3_pkp_1",
+              "I_py3_pkp_2"
+            ]);
+          }
 
           break;
 
@@ -640,11 +662,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player3.animate) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_py3_pkp_0",
-            "I_py3_pkp_1",
-            "I_py3_pkp_2"
-          ]);
           break;
         case 1:
           break;
@@ -658,7 +675,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          Utils.FN.DrawObj(ctx, ST, ["I_py4_bg_01", "I_py4_bg_02"]);
+          Utils.FN.DrawObj(ctx, ST, ["I_py4_bg_01"]);
+          (ST.STATE.play_zhuang == 4 || ST.STATE.qzhuang == 4) &&
+            Utils.FN.DrawObj(ctx, ST, ["I_py4_bg_02"]);
           ST.STATE.play_zhuang == 4 &&
             Utils.FN.DrawObj(ctx, ST, ["A_py_Banker"], {
               xto: -852,
@@ -679,34 +698,41 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             size: 24,
             color: "#FFD385"
           });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str:
-              ST.STATE.player4.result < 0
-                ? ST.STATE.player4.result + ""
-                : "+" + ST.STATE.player4.result,
-            xto: -770,
-            yto: 40,
-            size: 36,
-            stroke: true,
-            sc: "#158138",
-            lw: "1",
-            Gradient: true,
-            Gradient_data:
-              ST.STATE.player4.result < 0
-                ? ["#DCFFE1", "#45F45E"]
-                : ["#FFD9DD", "#FF6474"]
-          });
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: "下 34 倍",
-            xto: -580,
-            yto: 90,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str:
+          //     ST.STATE.player4.result < 0
+          //       ? ST.STATE.player4.result + ""
+          //       : "+" + ST.STATE.player4.result,
+          //   xto: -770,
+          //   yto: 40,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#158138",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data:
+          //     ST.STATE.player4.result < 0
+          //       ? ["#DCFFE1", "#45F45E"]
+          //       : ["#FFD9DD", "#FF6474"]
+          // });
+          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+          //   str: "下 34 倍",
+          //   xto: -580,
+          //   yto: 90,
+          //   size: 36,
+          //   stroke: true,
+          //   sc: "#804C22",
+          //   lw: "1",
+          //   Gradient: true,
+          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
+          // });
+          if (ST.STATE.player4.animate >= 13) {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_py4_pkp_0",
+              "I_py4_pkp_1",
+              "I_py4_pkp_2"
+            ]);
+          }
 
           break;
 
@@ -715,11 +741,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       }
       switch (ST.STATE.player4.animate) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_py4_pkp_0",
-            "I_py4_pkp_1",
-            "I_py4_pkp_2"
-          ]);
           break;
         case 1:
           0;
@@ -732,19 +753,70 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       // 全局动画
       switch (ST.STATE.animate) {
         case 0:
-          break;
-        case 1:
           Utils.FN.DrawObj(ctx, ST, ["I_py_zhuang"], ST.zhuang_position[4]);
           break;
+        case 1:
+          Utils.FN.DrawObj(ctx, ST, ["I_pups_bg"]);
+          Utils.FN.DrawObj(ctx, ST, ["F_font"], {
+            str: "正在为您匹配牌桌",
+            xto: -160,
+            yto: -80,
+            size: 36,
+            color: "black"
+          });
+          Utils.FN.DrawObj(ctx, ST, ["F_font_dot_loding"], {
+            store: { str: "游戏即将开始，请耐心等待" },
+            xto: -230,
+            yto: 20,
+            size: 36,
+            color: "black"
+          });
+
+          // TODO: 此处ws请求连接房间数据
+          let win1 = Utils.FN.Simple(ST, 5000);
+          if (win1) {
+            for (let i = 0; i < 5; i++) {
+              let name = "player" + i;
+              ST.STATE[name].status = 1;
+              let player_face = `I_py${i}_face`;
+              ST.CVDATA[player_face].setattr(
+                "img",
+                _that.player_faces[ST.STATE[name].face]
+              );
+            }
+            ST.STATE.animate = 2;
+            // Utils.FN.play_game_music(
+            //   _that.Base.Music.game_music.doms,
+            //   "../../../../assets/media/qzniu/startgame.mp3"
+            // );
+          }
+          break;
+        case 2:
+          Utils.FN.DrawObj(ctx, ST, ["I_begin_bg", "A_begin"]);
+          Utils.FN.Simple(ST, 1000) && (ST.STATE.animate = 3);
+          break;
+        case 3:
+          let star = [
+            "I_star_0",
+            "I_star_1",
+            "I_star_2",
+            "I_star_3",
+            "I_star_4",
+            "I_star_5",
+            "I_star_6",
+            "I_star_7"
+          ];
+          star = _that.set_star(star);
+          Utils.FN.DrawObj(ctx, ST, ["I_begin_bg", "A_begin", ...star]);
+
+          Utils.FN.Simple(ST, 1500) && (ST.STATE.step = 5);
+          break;
         case 5:
-        let deal_1 = _that.pkp_animate(); // 执行发牌动作
-        if (deal_1) {
-          // for (let i = 0; i < ST.PKP.player0.length; i++) {
-          //   ST.PKP.obj[ST.PKP.player0[i]].anistate = 2;
-          // }
-          // ST.STATE.player0.animate = 6;
-          ST.STATE.animate = 0;
-        }
+          _that.pkp_animate(); // 执行发牌动作
+          ST.STATE.animate = 6;
+          break;
+        case 6:
+          Utils.FN.Simple(ST, 500) && (ST.STATE.player0.animate = 2);
           break;
         default:
           break;
@@ -1067,9 +1139,9 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     Utils.FN.ObMaping(this.Store.CVDATA, CreateObj(this.Store.py4_pkp));
 
     ST.PKP = this.create_pkp(15); // 创建扑克牌数据
-    _that.set_pkp_animate();
     // 将扑克牌对象映射到 this.Store.CVDATA ！！！！！！
     Utils.FN.ObMaping(this.Store.CVDATA, this.Store.PKP.obj);
+    _that.set_pkp_animate();
     // 初始扑克牌显示位置
     // for (let i = 0; i < this.Store.PKP.arr.length; i++) {
     //   const name = this.Store.PKP.arr[i];
@@ -1208,7 +1280,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
               ],
               fps
             );
-            win2 && (o.anistate = 0)
+            win2 && (o.anistate = 0);
             break;
 
           default:
@@ -1233,29 +1305,24 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     pkp["player3"] = [];
     pkp["player4"] = [];
     for (let i = 0; i < 15; i++) {
-      let n = i + this.Store.STATE.play_zhuang; // 从庄家开始发牌
       let p = pkp.arr[pkp.arr.length - 1 - i];
       let q = Math.floor(i / 5);
-      let name = "player" + (n % 5);
+      let name = "player" + (i % 5);
       pkp.obj[p].store = this.Store.PkpGroup[name].site[q];
       pkp.obj[p].store["orxto"] = pkp.obj[p].xto;
       pkp.obj[p].store["oryto"] = pkp.obj[p].yto;
       pkp[name].push(p);
       pkp.obj[p].origin = this.Store.PkpGroup[name].origin;
     }
-    console.log(pkp);
   }
 
   // 发牌
   public pkp_animate() {
     let pkp = this.Store.PKP;
-    // let a = pkp.arr[pkp.arr.length - 1];
-    // pkp.obj[a].anistate = 1;
     for (let i = 0; i < pkp.arr.length; i++) {
       let a = pkp.arr[i];
       pkp.obj[a].anistate = 1;
     }
-    return false;
   }
 
   //  设置扑克牌面图片，计算牌面值
@@ -1274,8 +1341,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // 设置开牌时牌型 （牛几） 图片
-  public set_niuImg() {
+  // 设置开牌时牌型 （点数） 图片
+  public set_dianImg() {
     let data = [];
     for (let i = 0; i < 15; i++) {
       let img = new Image();
@@ -1297,5 +1364,14 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       data.push(img);
     }
     return data;
+  }
+
+  // 设置星星显示隐藏
+  public set_star(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let b = this.Store.CVDATA[arr[i]].show;
+      this.Store.CVDATA[arr[i]].show = Math.random() > 0.8 ? !b : b;
+    }
+    return arr;
   }
 }

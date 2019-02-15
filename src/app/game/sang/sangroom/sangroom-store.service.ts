@@ -25,68 +25,48 @@ export class SangroomStoreService {
   // 各玩家发牌位置
   public PkpGroup = {
     player0: {
-      pkname: [
-        "I_py0_pkp_0",
-        "I_py0_pkp_1",
-        "I_py0_pkp_2",
-      ],
+      pkname: ["I_py0_pkp_0", "I_py0_pkp_1", "I_py0_pkp_2"],
       origin: { xto: 150, yto: 330 }, // 收牌坐标位置
       site: [
         { xto: 30, yto: 330 },
         { xto: 150, yto: 330 },
-        { xto: 270, yto: 330 },
+        { xto: 270, yto: 330 }
       ]
     },
     player1: {
-      pkname: [
-        "I_py1_pkp_0",
-        "I_py1_pkp_1",
-        "I_py1_pkp_2",
-      ],
+      pkname: ["I_py1_pkp_0", "I_py1_pkp_1", "I_py1_pkp_2"],
       origin: { xto: 480, yto: 140 }, // 收牌坐标位置
       site: [
         { xto: 360, yto: 140 },
         { xto: 420, yto: 140 },
-        { xto: 480, yto: 140 },
+        { xto: 480, yto: 140 }
       ]
     },
     player2: {
-      pkname: [
-        "I_py2_pkp_0",
-        "I_py2_pkp_1",
-        "I_py2_pkp_2",
-      ],
+      pkname: ["I_py2_pkp_0", "I_py2_pkp_1", "I_py2_pkp_2"],
       origin: { xto: 480, yto: -160 }, // 收牌坐标位置
       site: [
         { xto: 360, yto: -160 },
         { xto: 420, yto: -160 },
-        { xto: 480, yto: -160 },
+        { xto: 480, yto: -160 }
       ]
     },
     player3: {
-      pkname: [
-        "I_py3_pkp_0",
-        "I_py3_pkp_1",
-        "I_py3_pkp_2",
-      ],
+      pkname: ["I_py3_pkp_0", "I_py3_pkp_1", "I_py3_pkp_2"],
       origin: { xto: -598, yto: -160 }, // 收牌坐标位置
       site: [
         { xto: -478, yto: -160 },
         { xto: -538, yto: -160 },
-        { xto: -598, yto: -160 },
+        { xto: -598, yto: -160 }
       ]
     },
     player4: {
-      pkname: [
-        "I_py4_pkp_0",
-        "I_py4_pkp_1",
-        "I_py4_pkp_2",
-      ],
+      pkname: ["I_py4_pkp_0", "I_py4_pkp_1", "I_py4_pkp_2"],
       origin: { xto: -598, yto: 140 }, // 收牌坐标位置
       site: [
         { xto: -478, yto: 140 },
         { xto: -538, yto: 140 },
-        { xto: -598, yto: 140 },
+        { xto: -598, yto: 140 }
       ]
     }
   };
@@ -416,6 +396,17 @@ export class SangroomStoreService {
         }
       }
     },
+    A_pups_close: {
+      type: "ANIMATED",
+      src: "../../../../assets/images/common/close/close_anibg_",
+      uiw: 100,
+      uih: 102,
+      xto: 360,
+      yto: -306,
+      length: 12,
+      step: 200,
+      doauto: true
+    },
     I_btn_yes: {
       type: "IMG",
       src: "../../../../assets/images/common/btn_yes.png",
@@ -434,24 +425,24 @@ export class SangroomStoreService {
         }
       }
     },
-    // I_btn_cancel: {
-    //   type: "IMG",
-    //   src: "../../../../assets/images/qzniu/room/btn_cancel.png",
-    //   uiw: 150,
-    //   uih: 64,
-    //   xto: 25,
-    //   yto: 90,
-    //   event: true,
-    //   eventdata: {
-    //     click: function(serve, callback = null) {
-    //       serve.STATE.popup = 0;
-    //       callback && typeof callback == "function" && callback();
-    //     }
-    //   }
-    // },
+    I_btn_cancel: {
+      type: "IMG",
+      src: "../../../../assets/images/common/btn_cancel.png",
+      uiw: 150,
+      uih: 64,
+      xto: 25,
+      yto: 90,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.popup = 0;
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
     I_btn_continue: {
       type: "IMG",
-      src: "../../../../assets/images/qzniu/room/btn_continue.png",
+      src: "../../../../assets/images/sang/room/btn_continue.png",
       uiw: 270,
       uih: 92,
       xto: -135,
@@ -464,17 +455,116 @@ export class SangroomStoreService {
         }
       }
     },
+    I_star_0: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: -120,
+      yto: -100
+    },
+    I_star_1: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: -150,
+      yto: -90,
+      scaling:.4,
+      rotate:45
+    },
+    I_star_2: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: -380,
+      yto: -40,
+      scaling:.8,
+      rotate:20
+    },
+    I_star_3: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: -400,
+      yto: 30,
+      scaling:.6,
+      rotate:45
+    },
+    I_star_4: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: 60,
+      yto: -80,
+      scaling:.8,
+      rotate:45
+    },
+    I_star_5: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: 380,
+      yto: -20,
+      scaling:.4,
+      rotate:0
+    },
+    I_star_6: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: 368,
+      yto: 10,
+      scaling:1,
+      rotate:10
+    },
+    I_star_7: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/star.png",
+      uiw: 32,
+      uih: 32,
+      xto: 370,
+      yto: 110,
+      scaling:.6,
+      rotate:45
+    },
 
-    A_pups_close: {
+    I_begin_bg: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/begin/begin_bg.png",
+      uiw: 1317,
+      uih: 244,
+      xto: -658,
+      yto: -60
+    },
+
+    A_begin: {
       type: "ANIMATED",
-      src: "../../../../assets/images/qzniu/room/close/close_anibg_",
-      uiw: 100,
-      uih: 102,
-      xto: 360,
-      yto: -306,
-      length: 12,
+      src: "../../../../assets/images/sang/room/begin/begin_",
+      uiw: 880,
+      uih: 350,
+      xto: -440,
+      yto: -180,
+      length: 5,
       step: 200,
-      doauto: true
+      currindex: 1,
+      doauto: true,
+      danimate: true,
+      danimateconfig: 100,
+      aniconfig: function(o, fps) {
+        switch (o.anistate) {
+          case 0:
+            !o.danimate && (o.anistate = 1, o.danimateconfig = 60000);
+            break;
+          case 1:
+            break;
+        }
+      }
     },
 
     I_time_bg: {
@@ -575,6 +665,67 @@ export class SangroomStoreService {
       xto: -342,
       yto: 348
     },
+    I_btn_xz: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png.png",
+      uiw: 122,
+      uih: 63,
+      xto: -342,
+      yto: 348,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          console.log("点击了下注按钮");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_noz: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn_noz.png",
+      uiw: 152,
+      uih: 63,
+      xto: -200,
+      yto: 220,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          console.log("点击了不抢");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_qz: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn_qz.png",
+      uiw: 152,
+      uih: 63,
+      xto: 48,
+      yto: 220,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          console.log("点击了抢庄");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_showp: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn_showp.png",
+      uiw: 196,
+      uih: 63,
+      xto: -342,
+      yto: 348,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          console.log("点击了开牌按钮");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+
     A_py0_Banker: {
       type: "ANIMATED",
       src: "../../../../assets/images/sang/room/banker_line/banker0_line_",
@@ -585,7 +736,8 @@ export class SangroomStoreService {
       length: 3,
       step: 200,
       doauto: true
-    }
+    },
+
   };
   public py0_pkp = {
     I_py0_pkp_0: {
@@ -990,7 +1142,6 @@ export class SangroomStoreService {
     }
   };
 
-
   public py3 = {
     I_py3_bg_01: {
       type: "IMG",
@@ -1108,8 +1259,8 @@ export class SangroomStoreService {
           case 0:
             break;
           case 1:
-          let win1 = o.transition([["xto", -598, -478, 200]], fps);
-          win1 && (o.anistate = 0);
+            let win1 = o.transition([["xto", -598, -478, 200]], fps);
+            win1 && (o.anistate = 0);
             break;
           case 2:
             // let win2 = o.transition(
@@ -1133,7 +1284,6 @@ export class SangroomStoreService {
       }
     }
   };
-
 
   public py4 = {
     I_py4_bg_01: {
@@ -1252,8 +1402,8 @@ export class SangroomStoreService {
           case 0:
             break;
           case 1:
-          let win1 = o.transition([["xto", -598, -478, 200]], fps);
-          win1 && (o.anistate = 0);
+            let win1 = o.transition([["xto", -598, -478, 200]], fps);
+            win1 && (o.anistate = 0);
             break;
           case 2:
             // let win2 = o.transition(
@@ -1277,6 +1427,4 @@ export class SangroomStoreService {
       }
     }
   };
-
-
 }

@@ -34,7 +34,7 @@ export class GameComponent implements OnInit {
   public creat_bg_music() {
     let audio = new Audio();
     audio.loop = true;
-    audio.autoplay = true;
+    // audio.autoplay = true;
     audio.volume = this.Base.Music.bg_music.value;
     audio.src = "../../assets/media/home.mp3";
     //PC端自动播放

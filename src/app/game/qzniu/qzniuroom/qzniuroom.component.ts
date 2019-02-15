@@ -84,7 +84,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     this.pk_names = this.set_pkpName(); // 定义扑克牌名称
     this.Store.PKP_img = this.set_pkpImg(this.pk_names); // 创建所有扑克牌图片
     this.result_nius = this.set_niuImg(); // 创建所有开牌时牛几 图片
-    this.player_faces = this.set_faceImg(); // 创建所有开牌时牛几 图片
+    this.player_faces = this.set_faceImg(); // 创建玩家头像 图片
   }
 
   ngAfterViewInit() {
@@ -204,7 +204,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       qzhuang_palyers: [], // 当前抢庄倍率最高的玩家集合
       play_zhuang: -1, // 庄家  初始-1
       zhuang_win_lose: 0, // 当前游戏庄家通杀通赢状态:0：默认无状态 1：庄家通输， 2：庄家通赢
-      popup: 0
+      popup: 0 // 提示框控制
     };
 
     // 临时扑克牌牌面  TODO ： 连接后台数据后删除
