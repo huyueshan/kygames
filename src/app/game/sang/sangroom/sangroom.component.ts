@@ -284,8 +284,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         "I_desk",
         "A_croupier",
         "I_tip_bg",
-        "I_tip_bell",
-        "I_time_bg"
+        "I_tip_bell"
       ]);
       Utils.FN.DrawObj(ctx, ST, ["F_font"], {
         str: `延迟:${ST.DELAY}ms`,
@@ -395,18 +394,20 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       ? ["#DCFFE1", "#45F45E"]
           //       : ["#FFD9DD", "#FF6474"]
           // });
-          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-          //   str: "下 14 倍",
-          //   xto: -200,
-          //   yto: 416,
-          //   size: 36,
-          //   stroke: true,
-          //   sc: "#804C22",
-          //   lw: "1",
-          //   Gradient: true,
-          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
-          // });
-          if (ST.STATE.player4.animate >= 13) {
+          ST.STATE.player0.xz_times !== -1 &&
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${ST.STATE.player0.xz_times} 倍`,
+              xto: -200,
+              yto: 416,
+              size: 36,
+              stroke: true,
+              sc: "#804C22",
+              lw: "1",
+              Gradient: true,
+              Gradient_data: ["#FFFDC9", "#E1DA28"]
+            });
+
+          if (ST.STATE.player0.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py0_pkp_0",
               "I_py0_pkp_1",
@@ -423,10 +424,114 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 2:
-          Utils.FN.DrawObj(ctx, ST, [
-            "I_btn_noz",
-            "I_btn_qz",
-          ]);
+          if (ST.STATE.player0.qz_times == -1) {
+            Utils.FN.DrawObj(ctx, ST, ["I_btn_noz", "I_btn_qz"]);
+          } else {
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: ST.STATE.player0.qz_times == 1 ? "抢 庄" : "不 抢",
+              xto: -160,
+              yto: 416,
+              size: 36,
+              stroke: true,
+              sc: ST.STATE.player0.qz_times == 1 ? "#955A14" : "#194471",
+              lw: "1",
+              Gradient: true,
+              Gradient_data:
+                ST.STATE.player0.qz_times == 1
+                  ? ["#FFE1A5", "#FFBE48"]
+                  : ["#CCE8FF", "#74BCF7"]
+            });
+          }
+          break;
+        case 3:
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: ST.STATE.player0.qz_times == 1 ? "抢 庄" : "不 抢",
+            xto: -160,
+            yto: 416,
+            size: 36,
+            stroke: true,
+            sc: ST.STATE.player0.qz_times == 1 ? "#955A14" : "#194471",
+            lw: "1",
+            Gradient: true,
+            Gradient_data:
+              ST.STATE.player0.qz_times == 1
+                ? ["#FFE1A5", "#FFBE48"]
+                : ["#CCE8FF", "#74BCF7"]
+          });
+          break;
+        case 4:
+          if (ST.STATE.play_zhuang == 0 || ST.STATE.player0.xz_times !== -1) {
+            Utils.FN.DrawObj(ctx, ST, ["F_font"], {
+              str: "等待其他玩家下注",
+              xto: -100,
+              yto: 216,
+              size: 24,
+              color: "#FFFFFF"
+            });
+          } else {
+            Utils.FN.DrawObj(ctx, ST, [
+              "I_btn_bet_0",
+              "I_btn_bet_1",
+              "I_btn_bet_2",
+              "I_btn_bet_3",
+              "I_btn_bet_4"
+            ]);
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${xz_data[0]} 倍`,
+              xto: xz_data[0] > 10 ? -310 : -302,
+              yto: 214,
+              size: 24,
+              stroke: true,
+              sc: "#293496",
+              lw: "2",
+              Gradient: true,
+              Gradient_data: ["#FFFFFF", "#CACFFF"]
+            });
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${xz_data[1]} 倍`,
+              xto: xz_data[1] > 10 ? -180 : -172,
+              yto: 214,
+              size: 24,
+              stroke: true,
+              sc: "#293496",
+              lw: "2",
+              Gradient: true,
+              Gradient_data: ["#FFFFFF", "#CACFFF"]
+            });
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${xz_data[2]} 倍`,
+              xto: xz_data[2] > 10 ? -50 : -42,
+              yto: 214,
+              size: 24,
+              stroke: true,
+              sc: "#293496",
+              lw: "2",
+              Gradient: true,
+              Gradient_data: ["#FFFFFF", "#CACFFF"]
+            });
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${xz_data[3]} 倍`,
+              xto: xz_data[3] > 10 ? 80 : 88,
+              yto: 214,
+              size: 24,
+              stroke: true,
+              sc: "#293496",
+              lw: "2",
+              Gradient: true,
+              Gradient_data: ["#FFFFFF", "#CACFFF"]
+            });
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${xz_data[4]} 倍`,
+              xto: xz_data[4] > 10 ? 210 : 218,
+              yto: 214,
+              size: 24,
+              stroke: true,
+              sc: "#293496",
+              lw: "2",
+              Gradient: true,
+              Gradient_data: ["#FFFFFF", "#CACFFF"]
+            });
+          }
           break;
 
         default:
@@ -478,17 +583,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       ? ["#DCFFE1", "#45F45E"]
           //       : ["#FFD9DD", "#FF6474"]
           // });
-          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-          //   str: "下 14 倍",
-          //   xto: 440,
-          //   yto: 90,
-          //   size: 36,
-          //   stroke: true,
-          //   sc: "#804C22",
-          //   lw: "1",
-          //   Gradient: true,
-          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
-          // });
+          ST.STATE.player1.xz_times !== -1 &&
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: `下 ${ST.STATE.player1.xz_times} 倍`,
+            xto: 440,
+            yto: 90,
+            size: 36,
+            stroke: true,
+            sc: "#804C22",
+            lw: "1",
+            Gradient: true,
+            Gradient_data: ["#FFFDC9", "#E1DA28"]
+          });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py1_pkp_0",
@@ -506,6 +612,22 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
+          break;
+        case 3:
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: ST.STATE.player1.qz_times == 1 ? "抢 庄" : "不 抢",
+            xto: 440,
+            yto: 90,
+            size: 36,
+            stroke: true,
+            sc: ST.STATE.player1.qz_times == 1 ? "#955A14" : "#194471",
+            lw: "1",
+            Gradient: true,
+            Gradient_data:
+              ST.STATE.player1.qz_times == 1
+                ? ["#FFE1A5", "#FFBE48"]
+                : ["#CCE8FF", "#74BCF7"]
+          });
           break;
 
         default:
@@ -557,17 +679,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       ? ["#DCFFE1", "#45F45E"]
           //       : ["#FFD9DD", "#FF6474"]
           // });
-          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-          //   str: "下 34 倍",
-          //   xto: 440,
-          //   yto: -210,
-          //   size: 36,
-          //   stroke: true,
-          //   sc: "#804C22",
-          //   lw: "1",
-          //   Gradient: true,
-          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
-          // });
+          ST.STATE.player2.xz_times !== -1 &&
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: `下 ${ST.STATE.player2.xz_times} 倍`,
+            xto: 440,
+            yto: -210,
+            size: 36,
+            stroke: true,
+            sc: "#804C22",
+            lw: "1",
+            Gradient: true,
+            Gradient_data: ["#FFFDC9", "#E1DA28"]
+          });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py2_pkp_0",
@@ -586,6 +709,22 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           break;
         case 1:
           break;
+        case 3:
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: ST.STATE.player2.qz_times == 1 ? "抢 庄" : "不 抢",
+            xto: 440,
+            yto: -210,
+            size: 36,
+            stroke: true,
+            sc: ST.STATE.player2.qz_times == 1 ? "#955A14" : "#194471",
+            lw: "1",
+            Gradient: true,
+            Gradient_data:
+              ST.STATE.player2.qz_times == 1
+                ? ["#FFE1A5", "#FFBE48"]
+                : ["#CCE8FF", "#74BCF7"]
+          });
+          break;
 
         default:
           break;
@@ -597,7 +736,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           break;
         case 1:
           Utils.FN.DrawObj(ctx, ST, ["I_py3_bg_01"]);
-          (ST.STATE.play_zhuang == 3 || ST.STATE.qzhuang == 4) &&
+          (ST.STATE.play_zhuang == 3 || ST.STATE.qzhuang == 3) &&
             Utils.FN.DrawObj(ctx, ST, ["I_py3_bg_02"]);
           ST.STATE.play_zhuang == 3 &&
             Utils.FN.DrawObj(ctx, ST, ["A_py_Banker"], {
@@ -636,17 +775,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       ? ["#DCFFE1", "#45F45E"]
           //       : ["#FFD9DD", "#FF6474"]
           // });
-          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-          //   str: "下 34 倍",
-          //   xto: -580,
-          //   yto: -210,
-          //   size: 36,
-          //   stroke: true,
-          //   sc: "#804C22",
-          //   lw: "1",
-          //   Gradient: true,
-          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
-          // });
+          ST.STATE.player3.xz_times !== -1 &&
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: `下 ${ST.STATE.player3.xz_times} 倍`,
+            xto: -580,
+            yto: -210,
+            size: 36,
+            stroke: true,
+            sc: "#804C22",
+            lw: "1",
+            Gradient: true,
+            Gradient_data: ["#FFFDC9", "#E1DA28"]
+          });
           if (ST.STATE.player3.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py3_pkp_0",
@@ -664,6 +804,22 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
+          break;
+        case 3:
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: ST.STATE.player3.qz_times == 1 ? "抢 庄" : "不 抢",
+            xto: -580,
+            yto: -210,
+            size: 36,
+            stroke: true,
+            sc: ST.STATE.player3.qz_times == 1 ? "#955A14" : "#194471",
+            lw: "1",
+            Gradient: true,
+            Gradient_data:
+              ST.STATE.player3.qz_times == 1
+                ? ["#FFE1A5", "#FFBE48"]
+                : ["#CCE8FF", "#74BCF7"]
+          });
           break;
 
         default:
@@ -715,17 +871,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       ? ["#DCFFE1", "#45F45E"]
           //       : ["#FFD9DD", "#FF6474"]
           // });
-          // Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-          //   str: "下 34 倍",
-          //   xto: -580,
-          //   yto: 90,
-          //   size: 36,
-          //   stroke: true,
-          //   sc: "#804C22",
-          //   lw: "1",
-          //   Gradient: true,
-          //   Gradient_data: ["#FFFDC9", "#E1DA28"]
-          // });
+          ST.STATE.player4.xz_times !== -1 &&
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: `下 ${ST.STATE.player4.xz_times} 倍`,
+            xto: -580,
+            yto: 90,
+            size: 36,
+            stroke: true,
+            sc: "#804C22",
+            lw: "1",
+            Gradient: true,
+            Gradient_data: ["#FFFDC9", "#E1DA28"]
+          });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py4_pkp_0",
@@ -743,7 +900,22 @@ export class SangroomComponent implements OnInit, AfterViewInit {
         case 0:
           break;
         case 1:
-          0;
+          break;
+        case 3:
+          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+            str: ST.STATE.player4.qz_times == 1 ? "抢 庄" : "不 抢",
+            xto: -580,
+            yto: 90,
+            size: 36,
+            stroke: true,
+            sc: ST.STATE.player4.qz_times == 1 ? "#955A14" : "#194471",
+            lw: "1",
+            Gradient: true,
+            Gradient_data:
+              ST.STATE.player4.qz_times == 1
+                ? ["#FFE1A5", "#FFBE48"]
+                : ["#CCE8FF", "#74BCF7"]
+          });
           break;
 
         default:
@@ -753,7 +925,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       // 全局动画
       switch (ST.STATE.animate) {
         case 0:
-          Utils.FN.DrawObj(ctx, ST, ["I_py_zhuang"], ST.zhuang_position[4]);
           break;
         case 1:
           Utils.FN.DrawObj(ctx, ST, ["I_pups_bg"]);
@@ -816,10 +987,110 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           ST.STATE.animate = 6;
           break;
         case 6:
-          Utils.FN.Simple(ST, 500) && (ST.STATE.player0.animate = 2);
+          if (Utils.FN.Simple(ST, 1000)) {
+            ST.STATE.player0.animate = 2;
+            ST.STATE.animate = 7;
+            ST.CountDown = 5;
+          }
+          break;
+        case 7:
+          // 倒计时
+          let timer_01 = Utils.FN.Timer(ST, function() {
+            Utils.FN.DrawObj(ctx, ST, ["I_time_bg", "F_mid_timer"]);
+          });
+          if (timer_01) {
+            ST.STATE.animate = 8;
+            ST.STATE.player0.qz_times = ST.STATE.player0.qz_times == 1 ? 1 : 0;
+
+            // 其他玩家随机抢庄
+            for (let i = 1; i < 5; i++) {
+              let name = "player" + i;
+              ST.STATE[name].qz_times = Utils.FN.Random(0, 1);
+            }
+
+            for (let q = 0; q < 5; q++) {
+              let name = "player" + q;
+              if (ST.STATE[name].qz_times == 1) {
+                qzs_play.push(q);
+              }
+              ST.STATE[name].animate = 3;
+            }
+            if (qzs_play.length == 0) {
+              qzs_play = [0, 1, 2, 3, 4];
+            }
+          }
+
+          break;
+        case 8:
+          let sp2 = Utils.FN.Simple(ST, 3000); // TODO: 自动分配庄家
+          if (qzs_play.length > 0) {
+            compute_currqu_index++;
+            if (compute_currqu_index % 4 == 0) {
+              currqu_index++;
+              currqu_index = currqu_index >= qzs_play.length ? 0 : currqu_index;
+              ST.STATE.qzhuang = qzs_play[currqu_index];
+            }
+          }
+          if (sp2) {
+            ST.STATE.animate = 9;
+            ST.STATE.player0.animate = 2.5;
+            ST.STATE.qzhuang = -1;
+            ST.CountDown = 5;
+
+            let rodom_zhuang = Utils.FN.Random(0, qzs_play.length - 1);
+            ST.STATE.play_zhuang = qzs_play[rodom_zhuang]; // 确定庄家
+
+            for (let i = 0; i < 5; i++) {
+              let name = "player" + i;
+              ST.STATE[name].animate = 4;
+            }
+
+            // 当玩家不是庄家时分配下注倍数
+            if (ST.STATE.play_zhuang !== 0) {
+              xz_data = [1, 3, 5, 8, 7];
+              for (let i = 0; i < 5; i++) {
+                let name = "I_btn_bet_" + i;
+                let value = xz_data[i] > 0 ? xz_data[i] : 1;
+                ST.CVDATA[name].store["value"] = value; // 设置对象下注倍数按钮的倍数
+              }
+            }
+            // Utils.FN.play_game_music(
+            //   _that.Base.Music.game_music.doms,
+            //   "../../../../assets/media/qzniu/dinzhuang.mp3"
+            // );
+          }
+          break;
+        case 9:
+          // 倒计时
+          let timer_02 = Utils.FN.Timer(ST, function() {
+            Utils.FN.DrawObj(ctx, ST, ["I_time_bg", "F_mid_timer"]);
+          });
+          if (timer_02) {
+            ST.STATE.animate = 10;
+
+            ST.STATE.player0.xz_times =
+              ST.STATE.player0.xz_times == -1
+                ? xz_data[0]
+                : ST.STATE.player0.xz_times;
+
+            // 其他玩家随机下注
+            for (let i = 1; i < 5; i++) {
+              let name = "player" + i;
+              ST.STATE[name].xz_times = Utils.FN.Random(2, 50);
+            }
+          }
           break;
         default:
           break;
+      }
+
+      if (ST.STATE.play_zhuang !== -1) {
+        Utils.FN.DrawObj(
+          ctx,
+          ST,
+          ["I_py_zhuang"],
+          ST.zhuang_position[ST.STATE.play_zhuang]
+        );
       }
 
       // 绘制公告条

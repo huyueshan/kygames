@@ -74,7 +74,7 @@ export class SangroomStoreService {
   // 庄家图标位置
   public zhuang_position = [
     {
-      xto: -386,
+      xto: -30,
       yto: 304
     },
     {
@@ -579,39 +579,11 @@ export class SangroomStoreService {
     // 中间定时器文字
     F_mid_timer: {
       type: "FONT",
-      c: "#F0DD0A",
+      c: "#FFFFFF",
       wt: "bolder",
-      size: 40,
-      xto: -9,
-      yto: -15,
-      Gradient: true,
-      Gradient_data: ["#FEFA7D", "#F0DD0A", "#F0DD0A", "#FB7E16"],
-      aniconfig: function(o, fps) {
-        switch (o.anistate) {
-          case 0:
-            o.size += (10 * fps) / 100;
-            o.translateX -= o.str.length * 3;
-            o.translateY -= 5;
-            if (o.size >= 80) {
-              o.anistate = 1;
-            }
-            break;
-
-          case 1:
-            o.size -= (10 * fps) / 100;
-            o.translateX += o.str.length * 3;
-            o.translateY += 5;
-            if (o.size <= 30) {
-              o.str = "";
-              o.show = false;
-              o.size = 30;
-              o.anistate = 0;
-              o.translateX = 0;
-              o.translateY = 0;
-            }
-            break;
-        }
-      }
+      size: 60,
+      xto: -16,
+      yto: 34,
     },
 
     A_py_Banker: {
@@ -667,7 +639,7 @@ export class SangroomStoreService {
     },
     I_btn_xz: {
       type: "IMG",
-      src: "../../../../assets/images/sang/room/btn-bg.png.png",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
       uiw: 122,
       uih: 63,
       xto: -342,
@@ -686,11 +658,12 @@ export class SangroomStoreService {
       uiw: 152,
       uih: 63,
       xto: -200,
-      yto: 220,
+      yto: 200,
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
           console.log("点击了不抢");
+          serve.STATE.player0.qz_times = 0;
           callback && typeof callback == "function" && callback();
         }
       }
@@ -701,11 +674,12 @@ export class SangroomStoreService {
       uiw: 152,
       uih: 63,
       xto: 48,
-      yto: 220,
+      yto: 200,
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
           console.log("点击了抢庄");
+          serve.STATE.player0.qz_times = 1;
           callback && typeof callback == "function" && callback();
         }
       }
@@ -725,7 +699,86 @@ export class SangroomStoreService {
         }
       }
     },
-
+    I_btn_bet_0: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
+      uiw: 122,
+      uih: 63,
+      xto: -325,
+      yto: 200,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.player0.xz_times = serve.CVDATA.I_btn_bet_0.store.value;
+          console.log("点击了下注按钮0");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_bet_1: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
+      uiw: 122,
+      uih: 63,
+      xto: -195,
+      yto: 200,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.player0.xz_times = serve.CVDATA.I_btn_bet_1.store.value;
+          console.log("点击了下注按钮1");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_bet_2: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
+      uiw: 122,
+      uih: 63,
+      xto: -65,
+      yto: 200,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.player0.xz_times = serve.CVDATA.I_btn_bet_2.store.value;
+          console.log("点击了下注按钮2");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_bet_3: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
+      uiw: 122,
+      uih: 63,
+      xto: 65,
+      yto:200,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.player0.xz_times = serve.CVDATA.I_btn_bet_3.store.value;
+          console.log("点击了下注按钮3");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
+    I_btn_bet_4: {
+      type: "IMG",
+      src: "../../../../assets/images/sang/room/btn-bg.png",
+      uiw: 122,
+      uih: 63,
+      xto: 195,
+      yto: 200,
+      event: true,
+      eventdata: {
+        click: function(serve, callback = null) {
+          serve.STATE.player0.xz_times = serve.CVDATA.I_btn_bet_4.store.value;
+          console.log("点击了下注按钮4");
+          callback && typeof callback == "function" && callback();
+        }
+      }
+    },
     A_py0_Banker: {
       type: "ANIMATED",
       src: "../../../../assets/images/sang/room/banker_line/banker0_line_",
