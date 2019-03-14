@@ -96,7 +96,7 @@ websocket发送compete //抢庄
       "face": 0,
       "balance": 0,
       "gender": 0,
-      "qz_times": 0,
+      "qz_times": 0,   //, _that.ws_send("show");
       "xz_times": 0,
       "pkps": null,
       "pkp_type": 0,

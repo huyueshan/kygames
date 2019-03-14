@@ -103,7 +103,6 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       "../../assets/media/qzniu/game.mp3"
     );
 
-
     // setInterval(function() {
     //   let t = new Date().getTime();
 
@@ -115,66 +114,81 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    clearInterval(this.timer);
     this.WS.closesocket();
+    clearInterval(this.timer);
+    clearInterval(this.ws_ping);
   }
 
+  public ws_ping;
+
   public ws_resolve(data) {
-    data = JSON.parse(data);
+    try {
+      data = JSON.parse(data);
+    } catch (error) {}
     if (data.type == 1) {
-      let players_data = data.data.game_data.players ;
+      let players_data = data.data.game_data.players;
       for (let i = 0; i < players_data.length; i++) {
         const player = players_data[i];
         const name = "player" + i;
         Object.assign(this.Store.STATE[name], player);
       }
-      this.Store.STATE.qzhuang_palyers = data.data.game_data.qzhuang_players || [];
-      this.Store.STATE.play_zhuang = data.data.game_data.play_zhuang || -1;
-      this.Store.STATE.zhuang_win_lose = data.data.game_data.zhuang_win_lose || 0;
-      Object.assign(this.curr_room,data.data.info)
-      console.log("TIME:",new Date().getTime(),this.curr_room);
-    }else{
-      console.log(data.type);
-      let players_data = data.data.players ;
-      for (let i = 0; i < players_data.length; i++) {
-        const player = players_data[i];
-        const name = players_data[i].name;
-        for (let q = 0; q < 4; q++) {
-          let ply = "player" + q;
-          if (this.Store.STATE[ply].name == name) {
-            Object.assign(this.Store.STATE[ply],players_data[i])
+      this.Store.STATE.qzhuang_palyers =
+        data.data.game_data.qzhuang_players || [];
+      this.Store.STATE.play_zhuang = data.data.game_data.play_zhuang;
+      this.Store.STATE.zhuang_win_lose =
+        data.data.game_data.zhuang_win_lose || 0;
+      Object.assign(this.curr_room, data.data.info);
+      console.log("TIME:", new Date().getTime(), this.curr_room);
+    } else {
+      if (data.type) {
+        let players_data = data.data.players;
+        for (let i = 0; i < players_data.length; i++) {
+          const player = players_data[i];
+          const name = player.name;
+          for (let q = 0; q < 4; q++) {
+            let ply = "player" + q;
+            if (this.Store.STATE[ply].name == name) {
+              Object.assign(this.Store.STATE[ply], player);
+              if (Array.isArray(player.pkps)) {
+                this.Store.STATE[ply].pkps = [...player.pkps];
+              }
+            }
           }
-
+          this.Store.STATE.qzhuang_palyersg = data.data.qzhuang_palyers || [
+            0,
+            2,
+            3
+          ];
+          this.Store.STATE.play_zhuang = data.data.play_zhuang;
+          this.Store.STATE.zhuang_win_lose = data.data.zhuang_win_lose;
         }
-        this.Store.STATE.qzhuang_palyersg = data.data.qzhuang_palyers || [0,2,3];
-        this.Store.STATE.play_zhuang = data.data.play_zhuang || -1;
-        // Object.assign(this.Store.STATE[name], player);
       }
-
     }
-    console.log(this.Store.STATE);
   }
 
+  public comput_ping: number = 0;
   public init() {
-    try {
-      this.WS.closesocket();
-    } catch (error) {}
-
-
-    this.WS.createObservableSocket("ws://172.16.102.140:8080/ws").subscribe(
-      data => {this.ws_resolve(data)},
-      err => console.log("错误信息：", err),
-      () => console.log("socket连接关闭！")
-    );
-    setTimeout(() => {
-      this.WS.sendMessage('init');
-
-    }, 1000);
-
     let _that = this;
     let ST = this.Store;
 
     _that.timer && clearInterval(_that.timer); // 清除定时器
+
+    _that.ws_ping && clearInterval(this.ws_ping);
+
+    try {
+      this.WS.closesocket();
+    } catch (error) {}
+
+    this.WS.createObservableSocket("ws://172.16.102.140:8080/ws").subscribe(
+      data => {
+        this.ws_resolve(data);
+      },
+      err => console.log("错误信息：", err),
+      () => console.log("socket连接关闭！")
+    );
+    setTimeout(() => {
+      this.ws_send("init");
+    }, 1000);
 
     // 初始化基本数据
     ST.CVDATA = {};
@@ -271,21 +285,21 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       return arr;
     })(_that);
 
-    // 临时随机定义玩家数据 TODO ： 连接后台数据后删除
-    setTimeout(() => {
-      for (let i = 0; i < 4; i++) {
-        let name = "player" + i;
-        ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
-        ST.STATE[name].face = Utils.FN.Random(0, 9);
-        ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
-        ST.STATE[name].gender = Utils.FN.Random(0, 1);
-        ST.STATE[name].pkp_type = Utils.FN.Random(0, 14);
-        ST.STATE[name].result = Utils.FN.Random(-5000, 10000);
-        ST.STATE[name].doubling = Utils.FN.Random(1, 20);
-      }
-      ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
+    // // 临时随机定义玩家数据 TODO ： 连接后台数据后删除
+    // setTimeout(() => {
+    //   for (let i = 0; i < 4; i++) {
+    //     let name = "player" + i;
+    //     ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
+    //     ST.STATE[name].face = Utils.FN.Random(0, 9);
+    //     ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
+    //     ST.STATE[name].gender = Utils.FN.Random(0, 1);
+    //     ST.STATE[name].pkp_type = Utils.FN.Random(0, 14);
+    //     ST.STATE[name].result = Utils.FN.Random(-5000, 10000);
+    //     ST.STATE[name].doubling = Utils.FN.Random(1, 20);
+    //   }
+    //   ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
 
-    }, 1200);
+    // }, 1200);
 
     let computeScale = -1; // 监听窗口大小变化后的画布比例变化
     let computeState = -1; // 监听绘画状态变化
@@ -405,11 +419,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           ST.STATE.player2.animate = 5;
           ST.STATE.player3.animate = 5;
           ST.STATE.step = 6;
-
-          // 随机设置其他玩家下倍数 TODO : 连接后台数据需删除
-          ST.STATE.player1.xz_times = Utils.FN.Random(1, 15);
-          ST.STATE.player2.xz_times = Utils.FN.Random(1, 15);
-          ST.STATE.player3.xz_times = Utils.FN.Random(1, 15);
+          // // 随机设置其他玩家下倍数 TODO : 连接后台数据需删除
+          // ST.STATE.player1.xz_times = Utils.FN.Random(1, 15);
+          // ST.STATE.player2.xz_times = Utils.FN.Random(1, 15);
+          // ST.STATE.player3.xz_times = Utils.FN.Random(1, 15);
           break;
         case 6:
           Utils.FN.DrawObj(ctx, ST, [
@@ -548,17 +561,20 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             ST.CountDown = 5;
             ST.STATE.player0.animate = 2;
 
-            _that.WS.sendMessage('compete');
-            console.log("TIME: 抢庄完成，接收所有抢庄玩家数据",new Date().getTime());
+            _that.ws_send("compete");
+            console.log(
+              "TIME: 抢庄完成，接收所有抢庄玩家数据",
+              new Date().getTime()
+            );
 
-            // 随机设置其他玩家抢庄倍数
-            ST.STATE.player1.qz_times = Utils.FN.Random(0, 3);
-            ST.STATE.player2.qz_times = Utils.FN.Random(0, 3);
-            ST.STATE.player3.qz_times = Utils.FN.Random(0, 3);
-            for (let i = 0; i < 4; i++) {
-              let name = "player" + i;
-              ST.STATE[name].qz_times > 0 && qzs_play.push(i);
-            }
+            // // 随机设置其他玩家抢庄倍数
+            // ST.STATE.player1.qz_times = Utils.FN.Random(0, 3);
+            // ST.STATE.player2.qz_times = Utils.FN.Random(0, 3);
+            // ST.STATE.player3.qz_times = Utils.FN.Random(0, 3);
+            // for (let i = 0; i < 4; i++) {
+            //   let name = "player" + i;
+            //   ST.STATE[name].qz_times > 0 && qzs_play.push(i);
+            // }
             Utils.FN.play_game_music(
               _that.Base.Music.game_music.doms,
               "../../../../assets/media/qzniu/xuanzhuang.mp3"
@@ -580,7 +596,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             Gradient: true,
             Gradient_data: ["#F5F2CF", "#E3CA56"]
           });
-          let sp2 = Utils.FN.Simple(ST, 3000); // TODO: 自动分配庄家
+          let sp2 = Utils.FN.Simple(ST, 3000);
           if (qzs_play.length > 0) {
             compute_currqu_index++;
             if (compute_currqu_index % 5 == 0) {
@@ -593,14 +609,14 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             ST.STATE.player0.animate = 2.5;
             ST.STATE.qzhuang = -1;
 
-            console.log("TIME: 确定庄家玩家数据",new Date().getTime());
-            if (qzs_play.length) {
-              let rodom_zhuang = Utils.FN.Random(0, qzs_play.length - 1);
-              ST.STATE.play_zhuang = qzs_play[rodom_zhuang]; // 确定庄家
-            } else {
-              alert("所有玩家都没有抢庄，将自动分配庄家");
-              ST.STATE.play_zhuang = Utils.FN.Random(0, 3);
-            }
+            console.log("TIME: 确定庄家玩家数据", new Date().getTime());
+            // if (qzs_play.length) { // TODO: 自动分配庄家
+            //   let rodom_zhuang = Utils.FN.Random(0, qzs_play.length - 1);
+            //   ST.STATE.play_zhuang = qzs_play[rodom_zhuang]; // 确定庄家
+            // } else {
+            //   alert("所有玩家都没有抢庄，将自动分配庄家");
+            //   ST.STATE.play_zhuang = Utils.FN.Random(0, 3);
+            // }
 
             // 当玩家不是庄家时分配下注倍数
             if (ST.STATE.play_zhuang !== 0) {
@@ -619,7 +635,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           break;
         case 2.5:
           let sp25 = Utils.FN.Simple(ST, 500); // TODO: 显示定庄动效和音效
-          sp25 && (ST.STATE.player0.animate = 3);
+          sp25 && ((ST.STATE.player0.animate = 3), _that.ws_send("redouble"));
           break;
         case 3:
           // 倒计时
@@ -737,13 +753,13 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           }
 
           if (pla0_timer_2) {
-
-            _that.WS.sendMessage('redouble');
-            console.log("TIME: 接收玩家下注数据",new Date().getTime());
+            console.log("TIME: 接收玩家下注数据", new Date().getTime());
+            console.log(ST.STATE);
             ST.STATE.player0.xz_times =
               ST.STATE.player0.xz_times < 1 ? 1 : ST.STATE.player0.xz_times;
             // ST.STATE.player0.animate = 4;
             ST.STATE.step = 5; // 启动发牌
+            _that.ws_send("deal");
           }
           break;
         case 4:
@@ -755,17 +771,17 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             (ST.STATE.player0.animate = 7);
           break;
         case 7:
-        _that.WS.sendMessage('deal');
-
-        console.log("TIME: 接收当前玩家牌面、牌型",new Date().getTime());
+          console.log("TIME: 接收当前玩家牌面、牌型", new Date().getTime());
+          console.log(ST.STATE);
           ST.PKP.arr = []; // 隐藏掉多余的牌
           for (let q = 0; q < ST.PKP.player0.length; q++) {
             ST.CVDATA[ST.PKP.player0[q]].setattr("show", false);
           }
+          console.log("333333333333333333333:", ST.STATE.player0.pkps);
           _that.set_pkp_option(
             ST.PkpGroup.player0.pkname,
             "img",
-            Utils.FN.Randomsort(ST.STATE.player0.pkps)
+            ST.STATE.player0.pkps
           ); // 设置牌面
           ST.STATE.player0.animate = 8;
           break;
@@ -773,6 +789,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           if (ST.CVDATA["I_py0_pkp_0"].event) {
             ST.CountDown = 9;
             ST.STATE.player0.animate = 9;
+            _that.ws_send("show");
           }
           break;
         case 9:
@@ -850,9 +867,11 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           if (ST.CVDATA["I_py0_pkp_0"].anistate == -1 && play0_pk_last_open) {
             let n = ST.STATE.play_zhuang >= 3 ? 0 : ST.STATE.play_zhuang + 1;
 
-            _that.WS.sendMessage('show');
-            _that.WS.sendMessage('settle');
-            console.log("TIME: 接收所有玩家牌面、牌型、输赢数据 、以及zhuang_win_lose值",new Date().getTime());
+            console.log(
+              "TIME: 接收所有玩家牌面、牌型、输赢数据 、以及zhuang_win_lose值",
+              new Date().getTime()
+            );
+
             let player = "player" + n; // 从庄家的下家开始开牌
             ST.STATE.player0.animate = 111;
             ST.STATE[player].animate = 11;
@@ -1349,6 +1368,12 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             for (let q = 0; q < ST.PKP.player3.length; q++) {
               ST.CVDATA[ST.PKP.player3[q]].setattr("show", false);
             }
+            console.log("ST.STATE.player3.pkps:", ST.STATE.player3, ST.STATE);
+            console.log(
+              "ST.STATE.player3.pkps:",
+              ST.STATE.player3["pkps"],
+              ST.STATE
+            );
             _that.set_pkp_option(
               ST.PkpGroup.player3.pkname,
               "img",
@@ -1476,6 +1501,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               );
               break;
           }
+          _that.ws_send("settle");
 
           ST.STATE.animate = 10;
           break;
@@ -1814,6 +1840,8 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         computeScale = _that.Base.watchScale;
         computeState = ST.STATE.step;
       }
+
+      // _that.ws_send("ping")
     }, ST.FPS);
 
     // 初始化玩家数据
@@ -2038,16 +2066,18 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
 
   //  设置扑克牌面图片，计算牌面值
   public set_pkp_option(arr, attr, data) {
-    for (let i = 0; i < arr.length; i++) {
-      let name = arr[i];
-      let value = data[i];
-      if (name && value) {
-        this.Store.CVDATA[name].setattr(attr, this.Store.PKP_img[value]);
-      }
-      if (attr == "img" && data[i] !== "back") {
-        let v = parseInt(data[i]);
-        v = v < 10 ? v : 10;
-        Object.assign(this.Store.CVDATA[name].store, { value: v });
+    if (data) {
+      for (let i = 0; i < arr.length; i++) {
+        let name = arr[i];
+        let value = data[i];
+        if (name && value) {
+          this.Store.CVDATA[name].setattr(attr, this.Store.PKP_img[value]);
+        }
+        if (attr == "img" && data[i] !== "back") {
+          let v = parseInt(data[i]);
+          v = v < 10 ? v : 10;
+          Object.assign(this.Store.CVDATA[name].store, { value: v });
+        }
       }
     }
   }
@@ -2075,5 +2105,19 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       data.push(img);
     }
     return data;
+  }
+
+  public ws_send(meesage) {
+    if (meesage !== "ping") {
+      this.WS.sendMessage(meesage);
+      this.comput_ping = 0;
+      return;
+    }
+    if (this.comput_ping >= 2000 / this.Store.FPS) {
+      this.WS.sendMessage(meesage);
+      this.comput_ping = 0;
+      return;
+    }
+    this.comput_ping++;
   }
 }
