@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 export class WebsocketService {
   ws: WebSocket;
   constructor() {}
-  
+
   // 创建一个WebSocket连接， 返回一个可观测的流，包括服务器返回的消息
   public createObservableSocket(url: string): Observable<any> {
     this.ws = new WebSocket(url);
@@ -20,12 +20,11 @@ export class WebsocketService {
 
   // 向服务器端发送消息
   public sendMessage(message: any) {
-    // console.log(message);
-    this.ws.send(JSON.stringify(message));
+    this.ws.send(message);
   }
 
   // 关闭WebSocket连接
-  public closesocket(message: any) {
+  public closesocket(message: any = "") {
     this.ws.close();
   }
 }

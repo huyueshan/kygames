@@ -404,7 +404,9 @@ const FN = {
       }, 100);
     });
     promise.then(() => {
-      audio.play();
+      try {
+        audio.play();
+      } catch (error) {}
     });
   },
   // 移动端触屏后播放背景音乐

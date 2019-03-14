@@ -43,24 +43,28 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     wangzhe: { name: "王者房", id: "005", dizhu: 5, player_numb: 0 },
     dianfeng: { name: "巅峰房", id: "006", dizhu: 6, player_numb: 0 }
   };
+  public response: any;
 
   ngOnInit() {
+    this.response = {};
     // 登录验证
     // console.log('hoime',this.Base.userinfo.token);
     // this.Http.post("http://172.16.101.10:7892/v1/get_user_authentication").subscribe(
     //   res => {
     //     console.log("66666666666666",res);
     //     // 验证成功后WebSocket 连接
-    //     this.WS.createObservableSocket("ws://172.16.101.10:8888/ws").subscribe(
-    //       data => console.log(data),
-    //       err => console.log(err),
-    //       () => console.log("流已经结束")
-    //     );
-    //     const _that = this
-    //     setInterval(function(){
-    //       let t = new Date().getTime();
-    //       _that.WS.sendMessage("时间：" + t +", fdiewfrweuirwer er er e;")
-    //     },2000)
+    // this.WS.createObservableSocket("ws://172.16.102.140:8080/ws").subscribe(
+    //   data => {
+    //     console.log("33333333333", data);
+    //   },
+    //   err => console.log("错误信息：", err),
+    //   () => console.log("socket连接关闭！")
+    // );
+    // const _that = this;
+    // // setInterval(function() {
+    // //   let t = new Date().getTime();
+    // _that.WS.sendMessage("compete");
+    // },1000);
     //   }
     // );
 
@@ -99,12 +103,9 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
       "../../assets/media/qzniu/game.mp3"
     );
 
-    // this.Base.Music.game_music.dom = this.el.nativeElement.querySelector(
-    //   "#gameAudio"
-    // );
-    // this.Base.Music.game_music.players = this.el.nativeElement.querySelectorAll(
-    //   "[class^='playerAudio_']"
-    // );
+
+    // setInterval(function() {
+    //   let t = new Date().getTime();
 
     // this.Base.Music.game_music.dom.volume = this.Base.Music.game_music.value;
     // let pls = this.Base.Music.game_music.players;
@@ -115,9 +116,61 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     clearInterval(this.timer);
+    this.WS.closesocket();
+  }
+
+  public ws_resolve(data) {
+    data = JSON.parse(data);
+    if (data.type == 1) {
+      let players_data = data.data.game_data.players ;
+      for (let i = 0; i < players_data.length; i++) {
+        const player = players_data[i];
+        const name = "player" + i;
+        Object.assign(this.Store.STATE[name], player);
+      }
+      this.Store.STATE.qzhuang_palyers = data.data.game_data.qzhuang_players || [];
+      this.Store.STATE.play_zhuang = data.data.game_data.play_zhuang || -1;
+      this.Store.STATE.zhuang_win_lose = data.data.game_data.zhuang_win_lose || 0;
+      Object.assign(this.curr_room,data.data.info)
+      console.log("TIME:",new Date().getTime(),this.curr_room);
+    }else{
+      console.log(data.type);
+      let players_data = data.data.players ;
+      for (let i = 0; i < players_data.length; i++) {
+        const player = players_data[i];
+        const name = players_data[i].name;
+        for (let q = 0; q < 4; q++) {
+          let ply = "player" + q;
+          if (this.Store.STATE[ply].name == name) {
+            Object.assign(this.Store.STATE[ply],players_data[i])
+          }
+
+        }
+        this.Store.STATE.qzhuang_palyersg = data.data.qzhuang_palyers || [0,2,3];
+        this.Store.STATE.play_zhuang = data.data.play_zhuang || -1;
+        // Object.assign(this.Store.STATE[name], player);
+      }
+
+    }
+    console.log(this.Store.STATE);
   }
 
   public init() {
+    try {
+      this.WS.closesocket();
+    } catch (error) {}
+
+
+    this.WS.createObservableSocket("ws://172.16.102.140:8080/ws").subscribe(
+      data => {this.ws_resolve(data)},
+      err => console.log("错误信息：", err),
+      () => console.log("socket连接关闭！")
+    );
+    setTimeout(() => {
+      this.WS.sendMessage('init');
+
+    }, 1000);
+
     let _that = this;
     let ST = this.Store;
 
@@ -219,17 +272,20 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     })(_that);
 
     // 临时随机定义玩家数据 TODO ： 连接后台数据后删除
-    for (let i = 0; i < 4; i++) {
-      let name = "player" + i;
-      ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
-      ST.STATE[name].face = Utils.FN.Random(0, 9);
-      ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
-      ST.STATE[name].gender = Utils.FN.Random(0, 1);
-      ST.STATE[name].pkp_type = Utils.FN.Random(0, 14);
-      ST.STATE[name].result = Utils.FN.Random(-5000, 10000);
-      ST.STATE[name].doubling = Utils.FN.Random(1, 20);
-    }
-    ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
+    setTimeout(() => {
+      for (let i = 0; i < 4; i++) {
+        let name = "player" + i;
+        ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
+        ST.STATE[name].face = Utils.FN.Random(0, 9);
+        ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
+        ST.STATE[name].gender = Utils.FN.Random(0, 1);
+        ST.STATE[name].pkp_type = Utils.FN.Random(0, 14);
+        ST.STATE[name].result = Utils.FN.Random(-5000, 10000);
+        ST.STATE[name].doubling = Utils.FN.Random(1, 20);
+      }
+      ST.STATE.zhuang_win_lose = Utils.FN.Random(0, 2);
+
+    }, 1200);
 
     let computeScale = -1; // 监听窗口大小变化后的画布比例变化
     let computeState = -1; // 监听绘画状态变化
@@ -273,6 +329,8 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
     let imadata_right = null;
 
     let play0_pk_last_open = false; // 玩家0 是否开牌
+
+    console.time();
 
     this.timer = setInterval(function() {
       ST.CW = _that.Base.canvasWidth; // 画布宽度
@@ -490,6 +548,9 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             ST.CountDown = 5;
             ST.STATE.player0.animate = 2;
 
+            _that.WS.sendMessage('compete');
+            console.log("TIME: 抢庄完成，接收所有抢庄玩家数据",new Date().getTime());
+
             // 随机设置其他玩家抢庄倍数
             ST.STATE.player1.qz_times = Utils.FN.Random(0, 3);
             ST.STATE.player2.qz_times = Utils.FN.Random(0, 3);
@@ -532,6 +593,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             ST.STATE.player0.animate = 2.5;
             ST.STATE.qzhuang = -1;
 
+            console.log("TIME: 确定庄家玩家数据",new Date().getTime());
             if (qzs_play.length) {
               let rodom_zhuang = Utils.FN.Random(0, qzs_play.length - 1);
               ST.STATE.play_zhuang = qzs_play[rodom_zhuang]; // 确定庄家
@@ -675,6 +737,9 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           }
 
           if (pla0_timer_2) {
+
+            _that.WS.sendMessage('redouble');
+            console.log("TIME: 接收玩家下注数据",new Date().getTime());
             ST.STATE.player0.xz_times =
               ST.STATE.player0.xz_times < 1 ? 1 : ST.STATE.player0.xz_times;
             // ST.STATE.player0.animate = 4;
@@ -690,6 +755,9 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
             (ST.STATE.player0.animate = 7);
           break;
         case 7:
+        _that.WS.sendMessage('deal');
+
+        console.log("TIME: 接收当前玩家牌面、牌型",new Date().getTime());
           ST.PKP.arr = []; // 隐藏掉多余的牌
           for (let q = 0; q < ST.PKP.player0.length; q++) {
             ST.CVDATA[ST.PKP.player0[q]].setattr("show", false);
@@ -781,6 +849,10 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
           }
           if (ST.CVDATA["I_py0_pkp_0"].anistate == -1 && play0_pk_last_open) {
             let n = ST.STATE.play_zhuang >= 3 ? 0 : ST.STATE.play_zhuang + 1;
+
+            _that.WS.sendMessage('show');
+            _that.WS.sendMessage('settle');
+            console.log("TIME: 接收所有玩家牌面、牌型、输赢数据 、以及zhuang_win_lose值",new Date().getTime());
             let player = "player" + n; // 从庄家的下家开始开牌
             ST.STATE.player0.animate = 111;
             ST.STATE[player].animate = 11;
@@ -1438,6 +1510,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
         case 11:
           ST.STATE.popup = 11;
           ST.STATE.animate = 12;
+          console.timeEnd();
           break;
         case 12:
           ST.STATE.popup !== 11 &&
@@ -1913,7 +1986,7 @@ export class QzniuroomComponent implements OnInit, AfterViewInit {
               ],
               fps
             );
-            win2 && (o.anistate = 0)
+            win2 && (o.anistate = 0);
             break;
 
           default:

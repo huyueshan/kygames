@@ -27,11 +27,16 @@ export class SangroomStoreService {
     player0: {
       pkname: ["I_py0_pkp_0", "I_py0_pkp_1", "I_py0_pkp_2"],
       origin: { xto: 150, yto: 330 }, // 收牌坐标位置
+      // origop: [   // 开牌坐标位置
+      //   { xto: 30, yto: 330 },
+      //   { xto: 150, yto: 330 },
+      //   { xto: 270, yto: 330 }
+      // ],
       site: [
         { xto: 30, yto: 330 },
         { xto: 150, yto: 330 },
         { xto: 270, yto: 330 }
-      ]
+      ],
     },
     player1: {
       pkname: ["I_py1_pkp_0", "I_py1_pkp_1", "I_py1_pkp_2"],
@@ -689,12 +694,14 @@ export class SangroomStoreService {
       src: "../../../../assets/images/sang/room/btn_showp.png",
       uiw: 196,
       uih: 63,
-      xto: -342,
-      yto: 348,
+      xto: -98,
+      yto: 220,
       event: true,
       eventdata: {
         click: function(serve, callback = null) {
           console.log("点击了开牌按钮");
+          serve.STATE.player0.animate = 6;
+          serve.STATE.animate = 11;
           callback && typeof callback == "function" && callback();
         }
       }

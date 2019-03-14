@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from "@angular/router";
 import { CommonModule } from '@angular/common';
 import { SangroomComponent } from './sangroom.component';
-import { SangroomStoreService } from './sangroom-store.service';
+import { SangroomStoreService } from './sangroomStore.service';
 
 
 const routes = [

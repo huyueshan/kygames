@@ -8,7 +8,7 @@ import { WebsocketService } from "../../../services/websocket.service";
 import { HttpclientService } from "../../../services/httpclient.service";
 import { Utils } from "../../../factory/utils.js";
 
-import { SangroomStoreService } from "./sangroom-store.service";
+import { SangroomStoreService } from "./sangroomStore.service";
 
 @Component({
   selector: "app-sangroom",
@@ -97,7 +97,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
     // 初始当前画布绘制状态
     ST.STATE = {
       step: 0,
-      animate: 1, // step: 5 而且animate: 5 时进入发牌过程
+      animate: 1, // step: 5 而且  animate: 5 时进入发牌过程  //初始1
       player0: {
         status: 1,
         animate: 0, // 11 进入开牌过程
@@ -185,21 +185,21 @@ export class SangroomComponent implements OnInit, AfterViewInit {
       popup: 0 // 提示框控制
     };
 
-    // // 临时扑克牌牌面  TODO ： 连接后台数据后删除
-    // let random_pkp = (function(_that) {
-    //   let setdata = new Set();
-    //   for (let q = 0; q < 20; q = setdata.size) {
-    //     let n = Utils.FN.Random(0, 51);
-    //     setdata.add(_that.pk_names[n]);
-    //   }
-    //   let arr = Array.from(setdata);
-    //   return arr;
-    // })(_that);
+    // 临时扑克牌牌面  TODO ： 连接后台数据后删除
+    let random_pkp = (function(_that) {
+      let setdata = new Set();
+      for (let q = 0; q < 15; q = setdata.size) {
+        let n = Utils.FN.Random(0, 51);
+        setdata.add(_that.pk_names[n]);
+      }
+      let arr = Array.from(setdata);
+      return arr;
+    })(_that);
 
     // 临时随机定义玩家数据 TODO ： 连接后台数据后删除
     for (let i = 0; i < 4; i++) {
       let name = "player" + i;
-      // ST.STATE[name].pkps = random_pkp.slice(i * 5, i * 5 + 5);
+      ST.STATE[name].pkps = random_pkp.slice(i * 3, i * 3 + 3);
       ST.STATE[name].face = Utils.FN.Random(0, 9);
       ST.STATE[name].balance = Utils.FN.Random(1000, 1000000) / 100;
       ST.STATE[name].gender = Utils.FN.Random(0, 1);
@@ -395,6 +395,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       : ["#FFD9DD", "#FF6474"]
           // });
           ST.STATE.player0.xz_times !== -1 &&
+            ST.STATE.play_zhuang !== 0 &&
             Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
               str: `下 ${ST.STATE.player0.xz_times} 倍`,
               xto: -200,
@@ -414,7 +415,6 @@ export class SangroomComponent implements OnInit, AfterViewInit {
               "I_py0_pkp_2"
             ]);
           }
-
           break;
 
         default:
@@ -533,6 +533,32 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             });
           }
           break;
+        case 5:
+          break;
+        case 6:
+          for (let i = 0; i < ST.PKP.player0.length; i++) {
+            const name = ST.PKP.player0[i];
+            ST.CVDATA[name].setattr("anistate", 2);
+          }
+          ST.STATE.player0.animate = 7;
+          break;
+        case 7:
+          if (ST.CVDATA[ST.PKP.player0[0]].anistate === 0) {
+            _that.set_pkp_option(
+              ST.PKP.player0,
+              "img",
+              Utils.FN.Randomsort(ST.STATE.player0.pkps) //TODO:开牌
+            );
+            for (let i = 0; i < ST.PKP.player0.length; i++) {
+              const name = ST.PKP.player0[i];
+              ST.CVDATA[name].setattr("anistate", 3);
+            }
+
+            ST.STATE.player0.animate = 8;
+          }
+          break;
+        case 8:
+          break;
 
         default:
           break;
@@ -584,17 +610,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       : ["#FFD9DD", "#FF6474"]
           // });
           ST.STATE.player1.xz_times !== -1 &&
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: `下 ${ST.STATE.player1.xz_times} 倍`,
-            xto: 440,
-            yto: 90,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+            ST.STATE.play_zhuang !== 1 &&
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${ST.STATE.player1.xz_times} 倍`,
+              xto: 440,
+              yto: 90,
+              size: 36,
+              stroke: true,
+              sc: "#804C22",
+              lw: "1",
+              Gradient: true,
+              Gradient_data: ["#FFFDC9", "#E1DA28"]
+            });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py1_pkp_0",
@@ -628,6 +655,8 @@ export class SangroomComponent implements OnInit, AfterViewInit {
                 ? ["#FFE1A5", "#FFBE48"]
                 : ["#CCE8FF", "#74BCF7"]
           });
+          break;
+        case 4:
           break;
 
         default:
@@ -680,17 +709,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       : ["#FFD9DD", "#FF6474"]
           // });
           ST.STATE.player2.xz_times !== -1 &&
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: `下 ${ST.STATE.player2.xz_times} 倍`,
-            xto: 440,
-            yto: -210,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+            ST.STATE.play_zhuang !== 2 &&
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${ST.STATE.player2.xz_times} 倍`,
+              xto: 440,
+              yto: -210,
+              size: 36,
+              stroke: true,
+              sc: "#804C22",
+              lw: "1",
+              Gradient: true,
+              Gradient_data: ["#FFFDC9", "#E1DA28"]
+            });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py2_pkp_0",
@@ -776,17 +806,18 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       : ["#FFD9DD", "#FF6474"]
           // });
           ST.STATE.player3.xz_times !== -1 &&
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: `下 ${ST.STATE.player3.xz_times} 倍`,
-            xto: -580,
-            yto: -210,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+            ST.STATE.play_zhuang !== 3 &&
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${ST.STATE.player3.xz_times} 倍`,
+              xto: -580,
+              yto: -210,
+              size: 36,
+              stroke: true,
+              sc: "#804C22",
+              lw: "1",
+              Gradient: true,
+              Gradient_data: ["#FFFDC9", "#E1DA28"]
+            });
           if (ST.STATE.player3.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py3_pkp_0",
@@ -872,17 +903,17 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           //       : ["#FFD9DD", "#FF6474"]
           // });
           ST.STATE.player4.xz_times !== -1 &&
-          Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
-            str: `下 ${ST.STATE.player4.xz_times} 倍`,
-            xto: -580,
-            yto: 90,
-            size: 36,
-            stroke: true,
-            sc: "#804C22",
-            lw: "1",
-            Gradient: true,
-            Gradient_data: ["#FFFDC9", "#E1DA28"]
-          });
+            Utils.FN.DrawObj(ctx, ST, ["F_font_wt"], {
+              str: `下 ${ST.STATE.player4.xz_times} 倍`,
+              xto: -580,
+              yto: 90,
+              size: 36,
+              stroke: true,
+              sc: "#804C22",
+              lw: "1",
+              Gradient: true,
+              Gradient_data: ["#FFFDC9", "#E1DA28"]
+            });
           if (ST.STATE.player4.animate >= 13) {
             Utils.FN.DrawObj(ctx, ST, [
               "I_py4_pkp_0",
@@ -944,7 +975,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           });
 
           // TODO: 此处ws请求连接房间数据
-          let win1 = Utils.FN.Simple(ST, 5000);
+          let win1 = Utils.FN.Simple(ST, 300);
           if (win1) {
             for (let i = 0; i < 5; i++) {
               let name = "player" + i;
@@ -990,7 +1021,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
           if (Utils.FN.Simple(ST, 1000)) {
             ST.STATE.player0.animate = 2;
             ST.STATE.animate = 7;
-            ST.CountDown = 5;
+            ST.CountDown = 1; // TODO: 倒计时5
           }
           break;
         case 7:
@@ -1035,7 +1066,7 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             ST.STATE.animate = 9;
             ST.STATE.player0.animate = 2.5;
             ST.STATE.qzhuang = -1;
-            ST.CountDown = 5;
+            ST.CountDown = 1; // TODO: 倒计时5
 
             let rodom_zhuang = Utils.FN.Random(0, qzs_play.length - 1);
             ST.STATE.play_zhuang = qzs_play[rodom_zhuang]; // 确定庄家
@@ -1066,8 +1097,10 @@ export class SangroomComponent implements OnInit, AfterViewInit {
             Utils.FN.DrawObj(ctx, ST, ["I_time_bg", "F_mid_timer"]);
           });
           if (timer_02) {
-            ST.STATE.animate = 10;
 
+            ST.STATE.player0.animate = 5;
+            ST.STATE.animate = 10;
+            ST.CountDown = 3;
             ST.STATE.player0.xz_times =
               ST.STATE.player0.xz_times == -1
                 ? xz_data[0]
@@ -1079,6 +1112,31 @@ export class SangroomComponent implements OnInit, AfterViewInit {
               ST.STATE[name].xz_times = Utils.FN.Random(2, 50);
             }
           }
+          break;
+        case 10:
+          // 开牌按钮
+          Utils.FN.DrawObj(ctx, ST, ["I_btn_showp"]);
+
+          let timer_03 = Utils.FN.Timer(ST, function() {
+            Utils.FN.DrawObj(ctx, ST, ["I_time_bg", "F_mid_timer"]);
+          });
+          if (timer_03) {
+            for (let q = 1; q < 5; q++) {
+              let name = "player"+q;
+              for (let i = 0; i < ST.PKP[name].length; i++) {
+                let pk_name = ST.PKP[name][i];
+                ST.CVDATA[pk_name].setattr("anistate", 2);
+              }
+            }
+
+            // for (let i = 0; i < ST.PKP.player1.length; i++) {
+            //   const name = ST.PKP.player1[i];
+            //   ST.CVDATA[name].setattr("anistate", 2);
+            // }
+
+          }
+          break;
+        case 11:
           break;
         default:
           break;
@@ -1552,6 +1610,16 @@ export class SangroomComponent implements OnInit, AfterViewInit {
               fps
             );
             win2 && (o.anistate = 0);
+            break;
+          case 3:
+            let win3 = o.transition(
+              [
+                ["xto", o.origin.xto, o.store.xto, 300],
+                ["yto", o.origin.yto, o.store.yto, 300]
+              ],
+              fps
+            );
+            win3 && (o.anistate = 0);
             break;
 
           default:
